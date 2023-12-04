@@ -14,7 +14,7 @@ function AddArchimedean(props) {
   const [sectors, setSectors] = useState(props.sectors);
   const [useCenter, setUseCenter] = useState(true);
   const [timedRelease, setTimedRelease] = useState(false);
-  const [timeDelay, setTimeDelay] = useState(1000);
+  const [timeDelay, setTimeDelay] = useState(100);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

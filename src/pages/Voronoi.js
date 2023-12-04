@@ -48,7 +48,8 @@ function Voronoi() {
   const changeVoronoiDisplay = () => { setShowVoronoi(!showVoronoi); }
   const clearPoints = () => { 
     setPointdata([]);
-    setDelayedPointData([]);
+    //setDelayedPointData([]);
+    delayedPoints = [];
   }
   const changePointsChanged = () => { setPointsChanged(!pointsChanged); }
 
@@ -132,7 +133,7 @@ function Voronoi() {
 
     // if timedRelease, start timer
     if (timedRelease) {
-      setDelayedPointData(delayedPoints);
+      //setDelayedPointData(delayedPoints);
       timerId = setInterval(() => {
         addDelayedPoint();
       }, timeDelay);
@@ -180,7 +181,7 @@ function Voronoi() {
 
     // if timedRelease, start timer
     if (timedRelease) {
-      setDelayedPointData(delayedPoints);
+      //setDelayedPointData(delayedPoints);
       timerId = setInterval(() => {
         addDelayedPoint();
       }, timeDelay);
@@ -244,7 +245,7 @@ function Voronoi() {
 
     // if timedRelease, start timer
     if (timedRelease) {
-      setDelayedPointData(delayedPoints);
+      //setDelayedPointData(delayedPoints);
       timerId = setInterval(() => {
         addDelayedPoint();
       }, timeDelay);
@@ -266,12 +267,8 @@ function Voronoi() {
 
       const svg = d3.select('#chart')
     
-      //svg.selectAll("*").remove()
-      //d3.select('#chart').remove()
-      if (firstLoad) {
-        firstLoad = !firstLoad; 
-        svg.selectAll('*').remove();
-      }
+      // clear svg canvas
+      svg.selectAll('*').remove();
 
       if (showPoints) {
         pointdata.forEach((point, index) => {
