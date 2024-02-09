@@ -93,7 +93,7 @@ function Voronoi() {
     }
   }
 
-  function addCircle(useCenter, centerX, centerY, radius, sectors, timedRelease, timeDelay) {
+  function addCircle(useCenter, centerX, centerY, startAngle, radius, sectors, timedRelease, timeDelay) {
  
     if (useCenter) {
       const svgRect = svgRef.current.getBoundingClientRect();
@@ -105,20 +105,20 @@ function Voronoi() {
 
     centerX = Number(centerX);
     centerY = Number(centerY);
+    startAngle = Number(startAngle);
     radius = Number(radius);
     sectors = Number(sectors);
     timeDelay = Number(timeDelay);
     timedRelease = Boolean(timedRelease);
 
+    let angularOffset = startAngle * Math.PI/180;
+
     for (let i = 0; i < sectors; i++) {
       let iFloat = parseFloat(i);
-      let circleX = centerX + (radius * Math.cos(iFloat * angularInc * Math.PI/180));									
-			let circleY = centerY + (radius * Math.sin(iFloat * angularInc * Math.PI/180));
+      let circleX = centerX + (radius * Math.cos((iFloat * angularInc * Math.PI/180) - angularOffset));									
+			let circleY = centerY + (radius * Math.sin((iFloat * angularInc * Math.PI/180) - angularOffset));
 
-      let point = {
-        x: circleX,
-        y: circleY
-      }
+      let point = [circleX, circleY];
 
       if (timedRelease) {
         delayedPoints.push(point);
