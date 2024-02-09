@@ -14,14 +14,16 @@ function Voronoi() {
 
   var firstLoad = true;
 
+  var color = function() {return d3.interpolateRainbow(Math.random())};
+
   var delayedPoints = [];
 
   var data = [];
   for (let i = 0; i < 100; i++) {
-    var point = {
-      x: Math.floor(Math.random() * width),
-      y: Math.floor(Math.random() * height)
-    }
+    var point = [
+      Math.floor(Math.random() * width),
+      Math.floor(Math.random() * height)
+    ]
     data.push(point);
   }  
 
@@ -61,10 +63,10 @@ function Voronoi() {
 
     setPointdata((prevPointdata) => [
         ...prevPointdata,
-        {
-          x: tempX,
-          y: tempY
-        },
+        [
+          tempX,
+          tempY
+        ],
     ]);
   };
 
@@ -163,10 +165,7 @@ function Voronoi() {
       let circleX = centerX + (radius * Math.cos(iFloat * angularInc * Math.PI/180));									
 			let circleY = centerY + (yRadius * Math.sin(iFloat * angularInc * Math.PI/180));
 
-      let point = {
-        x: circleX,
-        y: circleY
-      }
+      let point = [circleX, circleY];
 
       if (timedRelease) {
         delayedPoints.push(point);
@@ -198,6 +197,8 @@ function Voronoi() {
     sectors, 
     timedRelease, 
     timeDelay) {
+
+    console.log('spiral:%d:%d:%d:%d:%d', startRadius, stopRadius, startAngle, totalAngle, sectors);
       
     if (useCenter) {
       const svgRect = svgRef.current.getBoundingClientRect();
@@ -227,10 +228,7 @@ function Voronoi() {
 
       radius += radiusInc;
 
-      let point = {
-        x: circleX,
-        y: circleY
-      }
+      let point = [circleX, circleY];
 
       if (timedRelease) {
         delayedPoints.push(point);
@@ -252,17 +250,56 @@ function Voronoi() {
     }
   }
 
+  function processCommandFile(clearDataPoints, filePath) {
+ 
+    if (clearDataPoints) {
+      setPointdata([]);
+    }
+
+    console.log('clear data:' + clearDataPoints);
+    console.log('file path:' + filePath);
+
+    const file = FileReader;
+
+    file.onload = function() {
+      console.log('file', file.result);
+    }
+    file['readAsDataURL'](filePath[0]);
+
+  }
+
+  function drawVoronoi(parent, polygons, clipArea, level) {
+    var polygon = parent.insert("g",":first-child")
+        .attr("clip-path", function(d) { return clipArea ? "url(#" + clipArea+ ")" : ""})
+        .attr("class", "polygons")
+        .selectAll("path")
+        .data(polygons)
+        .enter().insert("path")
+        .attr("data-level",level)
+        .attr("stroke-width", function() {return 6 / ((level+1)*2) })
+        .attr("stroke", function() {d3.hsl("#000").brighter(level)})
+        .attr("fill", function() {return level === 0 ? "" : color()})
+        .attr("fill-opacity", "0.3")
+        .attr("d", polyToPath)
+  }
+
+  function polyToPath(polygon) {
+      return polygon ? "M" + polygon.join("L") + "Z" : null;
+  }
+
   useEffect(
     ()=>{
 
       // Delaunay
-      const formattedData = pointdata.map((d) => [xScale(d.x), yScale(d.y)]);
-      const delaunay = Delaunay.from(formattedData);
+      //const formattedData = pointdata.map((d) => [xScale(d.x), yScale(d.y)]);
+      const delaunay = Delaunay.from(pointdata);
 
       const delaunayPath = delaunay.render();
 
       //Voronoi
-      const voronoi = delaunay.voronoi([0, 0, width, height]);
+      var voronoi = delaunay.voronoi([0, 0, width, height]);
+      //var polygons = voronoi.cellPolygons()
+      //var voronoiFn = d3.voronoi().extent([[-1, -1], [width + 1, height + 1]]);
       const voronoiPath = voronoi.render();
 
       const svg = d3.select('#chart')
@@ -274,8 +311,8 @@ function Voronoi() {
         pointdata.forEach((point, index) => {
           svg.append('circle')
              .attr('key', index)
-             .attr('cx', xScale(point.x))
-             .attr('cy', yScale(point.y))
+             .attr('cx', xScale(point[0]))
+             .attr('cy', yScale(point[1]))
              .attr('r', 1.3)
         });
       }
@@ -289,9 +326,13 @@ function Voronoi() {
       }
 
       if (showVoronoi) {
+        //var polygons = voronoiFn.polygons(pointdata);
+        //drawVoronoi(svg, polygons, undefined, 0);
         svg.append('path')
           .attr('d', voronoiPath)
           .attr('fill', 'red')
+          .attr("fill", function() {return color()})
+          .attr("fill-opacity", "0.3")
           .attr('stroke', 'black')
       }
     }, [pointdata, showPoints, showDelaunay, showVoronoi, pointsChanged]
