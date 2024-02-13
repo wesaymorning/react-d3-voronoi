@@ -1,0 +1,65 @@
+[
+    {
+        "type": "ellipse","useCenter": true, "centerX": 100.0, "centerY": 100.0, "ratio": 1.0, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 200.0, "centerY": 150.0, "ratio": 1.1, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 300.0, "centerY": 200.0, "ratio": 1.2, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 400.0, "centerY": 250.0, "ratio": 1.3, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 500.0, "centerY": 300.0, "ratio": 1.4, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 600.0, "centerY": 350.0, "ratio": 1.5, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 700.0, "centerY": 400.0, "ratio": 1.6, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 800.0, "centerY": 450.0, "ratio": 1.7, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 900.0, "centerY": 500.0, "ratio": 1.8, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 1000.0, "centerY": 550.0, "ratio": 1.9, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 100.0, "centerY": 300.0, "ratio": 2.0, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 200.0, "centerY": 350.0, "ratio": 2.1, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 300.0, "centerY": 400.0, "ratio": 2.2, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 400.0, "centerY": 450.0, "ratio": 2.3, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 500.0, "centerY": 500.0, "ratio": 2.4, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 600.0, "centerY": 550.0, "ratio": 2.5, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 700.0, "centerY": 600.0, "ratio": 2.6, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 800.0, "centerY": 650.0, "ratio": 2.7, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 900.0, "centerY": 700.0, "ratio": 2.8, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 1000.0, "centerY": 750.0, "ratio": 2.9, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 1000.0, "centerY": 750.0, "ratio": 3.0, "radius": 400, "sectors": 50, "timedRelease": false, "timeDelay": 100
+    }
+]

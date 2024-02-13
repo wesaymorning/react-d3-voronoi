@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import AddCircle from './AddCircle';
 import AddEllipse from './AddEllipse';
 import AddArchimedean from './AddArchimedean';
+import LoadCommandFile from './LoadCommandFile';
 import './Voronoi.css';
 
 function Voronoi() {
@@ -250,22 +251,71 @@ function Voronoi() {
     }
   }
 
-  function processCommandFile(clearDataPoints, filePath) {
+  function processCommandFile(clearDataPoints, files, fileContents) {
  
     if (clearDataPoints) {
       setPointdata([]);
     }
 
     console.log('clear data:' + clearDataPoints);
-    console.log('file path:' + filePath);
+    console.log('files:' + files);
+    console.log('file contents:' + fileContents);
 
-    const file = FileReader;
+    // convert json file contents to structure
+    const parsedFile = JSON.parse(fileContents);
+    console.log("parsed:" + parsedFile);
 
-    file.onload = function() {
-      console.log('file', file.result);
+    if (parsedFile.length > 0) {
+      parsedFile.forEach(processJsonObject)
     }
-    file['readAsDataURL'](filePath[0]);
+  }
 
+  function processJsonObject(jObject) {
+    switch(jObject["type"]) {
+      case "point":
+        let point = [jObject["x"], jObject["y"]];
+        setPointdata((prevPointdata) => [
+          ...prevPointdata,
+          point,
+        ]);
+        break;
+      case "circle":
+        addCircle(jObject["useCenter"], 
+                  jObject["centerX"], 
+                  jObject["centerY"], 
+                  jObject["startAngle"], 
+                  jObject["radius"], 
+                  jObject["sectors"], 
+                  jObject["timedRelease"], 
+                  jObject["timeDelay"]
+                  )
+        break;
+      case "ellipse":
+          addEllipse(jObject["useCenter"], 
+                    jObject["centerX"], 
+                    jObject["centerY"],  
+                    jObject["radius"], 
+                    jObject["ratio"],
+                    jObject["sectors"], 
+                    jObject["timedRelease"], 
+                    jObject["timeDelay"]
+                    )
+          break;
+      case "archimedian":
+            addArchimedean(jObject["useCenter"], 
+                          jObject["centerX"], 
+                          jObject["centerY"],  
+                          jObject["startRadius"], 
+                          jObject["stopRadius"],
+                          jObject["startAngle"], 
+                          jObject["totalAngle"],
+                          jObject["sectors"], 
+                          jObject["timedRelease"], 
+                          jObject["timeDelay"]
+                          )
+            break;
+      default:
+    }
   }
 
   function drawVoronoi(parent, polygons, clipArea, level) {
@@ -366,6 +416,9 @@ function Voronoi() {
           radius="200" 
           sectors="100" 
           addEllipse={addEllipse}
+        /><br/>
+        <LoadCommandFile 
+          processCommandFile={processCommandFile}
         /><br/>
       </div>
       <div className="voronoi" id="container" class="w3-container">

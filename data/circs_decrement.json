@@ -1,0 +1,46 @@
+[
+    {
+        "type": "circle",
+        "useCenter": true, 
+        "centerX": 0.0,
+        "centerY": 0.0, 
+        "startAngle": 0, 
+        "radius": 500, 
+        "sectors": 100, 
+        "timedRelease": false, 
+        "timeDelay": 50
+    },
+    {
+        "type": "circle",
+        "useCenter": true, 
+        "centerX": 0.0,
+        "centerY": 0.0, 
+        "startAngle": 0, 
+        "radius": 460, 
+        "sectors": 80, 
+        "timedRelease": false, 
+        "timeDelay": 50
+    },
+    {
+        "type": "circle",
+        "useCenter": true, 
+        "centerX": 0.0,
+        "centerY": 0.0, 
+        "startAngle": 0, 
+        "radius": 380, 
+        "sectors": 40, 
+        "timedRelease": false, 
+        "timeDelay": 50
+    },
+    {
+        "type": "circle",
+        "useCenter": true, 
+        "centerX": 0.0,
+        "centerY": 0.0, 
+        "startAngle": 0, 
+        "radius": 220, 
+        "sectors": 20, 
+        "timedRelease": false, 
+        "timeDelay": 50
+    }
+]

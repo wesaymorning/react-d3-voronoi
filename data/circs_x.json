@@ -1,0 +1,63 @@
+[
+    {
+        "type": "circle","useCenter": false, "centerX": 100.0, "centerY": 100.0, "startAngle": 0, "radius": 100, "sectors": 20, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "circle","useCenter": false, "centerX": 200.0, "centerY": 150.0, "startAngle": 0, "radius": 100, "sectors": 20, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "circle","useCenter": false, "centerX": 300.0, "centerY": 200.0, "startAngle": 0, "radius": 100, "sectors": 20, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "circle","useCenter": false, "centerX": 400.0, "centerY": 250.0, "startAngle": 0, "radius": 100, "sectors": 20, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "circle","useCenter": false, "centerX": 500.0, "centerY": 300.0, "startAngle": 0, "radius": 100, "sectors": 20, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "circle","useCenter": false, "centerX": 600.0, "centerY": 350.0, "startAngle": 0, "radius": 100, "sectors": 20, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "circle","useCenter": false, "centerX": 700.0, "centerY": 400.0, "startAngle": 0, "radius": 100, "sectors": 20, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "circle","useCenter": false, "centerX": 800.0, "centerY": 450.0, "startAngle": 0, "radius": 100, "sectors": 20, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "circle","useCenter": false, "centerX": 900.0, "centerY": 500.0, "startAngle": 0, "radius": 100, "sectors": 20, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "circle","useCenter": false, "centerX": 1000.0, "centerY": 550.0, "startAngle": 0, "radius": 100, "sectors": 20, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "circle","useCenter": false, "centerX": 100.0, "centerY": 300.0, "startAngle": 0, "radius": 100, "sectors": 20, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "circle","useCenter": false, "centerX": 200.0, "centerY": 350.0, "startAngle": 0, "radius": 100, "sectors": 20, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "circle","useCenter": false, "centerX": 300.0, "centerY": 400.0, "startAngle": 0, "radius": 100, "sectors": 20, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "circle","useCenter": false, "centerX": 400.0, "centerY": 450.0, "startAngle": 0, "radius": 100, "sectors": 20, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "circle","useCenter": false, "centerX": 500.0, "centerY": 500.0, "startAngle": 0, "radius": 100, "sectors": 20, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "circle","useCenter": false, "centerX": 600.0, "centerY": 550.0, "startAngle": 0, "radius": 100, "sectors": 20, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "circle","useCenter": false, "centerX": 700.0, "centerY": 600.0, "startAngle": 0, "radius": 100, "sectors": 20, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "circle","useCenter": false, "centerX": 800.0, "centerY": 650.0, "startAngle": 0, "radius": 100, "sectors": 20, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "circle","useCenter": false, "centerX": 900.0, "centerY": 700.0, "startAngle": 0, "radius": 100, "sectors": 20, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "circle","useCenter": false, "centerX": 1000.0, "centerY": 750.0, "startAngle": 0, "radius": 100, "sectors": 20, "timedRelease": false, "timeDelay": 50
+    }
+    
+]
