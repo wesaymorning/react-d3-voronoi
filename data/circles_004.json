@@ -1,0 +1,79 @@
+[
+  {
+    "type": "circle",
+    "useCenter": false,
+    "centerX": 200,
+    "centerY": 200,
+    "startAngle": 0,
+    "radius": 200,
+    "sectors": 50,
+    "timedRelease": false,
+    "timeDelay": 50
+  },
+  {
+    "type": "circle",
+    "useCenter": false,
+    "centerX": 300,
+    "centerY": 300,
+    "startAngle": 0,
+    "radius": 300,
+    "sectors": 49,
+    "timedRelease": false,
+    "timeDelay": 50
+  },
+  {
+    "type": "circle",
+    "useCenter": false,
+    "centerX": 400,
+    "centerY": 400,
+    "startAngle": 0,
+    "radius": 400,
+    "sectors": 48,
+    "timedRelease": false,
+    "timeDelay": 50
+  },
+  {
+    "type": "circle",
+    "useCenter": false,
+    "centerX": 500,
+    "centerY": 500,
+    "startAngle": 0,
+    "radius": 500,
+    "sectors": 47,
+    "timedRelease": false,
+    "timeDelay": 50
+  },
+  {
+    "type": "circle",
+    "useCenter": false,
+    "centerX": 600,
+    "centerY": 600,
+    "startAngle": 0,
+    "radius": 600,
+    "sectors": 46,
+    "timedRelease": false,
+    "timeDelay": 50
+  },
+  {
+    "type": "circle",
+    "useCenter": false,
+    "centerX": 700,
+    "centerY": 700,
+    "startAngle": 0,
+    "radius": 700,
+    "sectors": 45,
+    "timedRelease": false,
+    "timeDelay": 50
+  },
+  {
+    "type": "circle",
+    "useCenter": false,
+    "centerX": 800,
+    "centerY": 800,
+    "startAngle": 0,
+    "radius": 800,
+    "sectors": 44,
+    "timedRelease": false,
+    "timeDelay": 50
+  }
+]

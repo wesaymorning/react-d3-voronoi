@@ -36,6 +36,7 @@ function Voronoi() {
   const [showPoints, setShowPoints] = useState(true);
   const [showDelaunay, setShowDelaunay] = useState(false);
   const [showVoronoi, setShowVoronoi] = useState(true);
+  const [showColours, setShowColours] = useState(false);
   const [pointsChanged, setPointsChanged] = useState(true);
   
   const svgRef = useRef();
@@ -49,6 +50,7 @@ function Voronoi() {
   const changePointsDisplay = () => { setShowPoints(!showPoints); }
   const changeDelaunayDisplay = () => { setShowDelaunay(!showDelaunay); }
   const changeVoronoiDisplay = () => { setShowVoronoi(!showVoronoi); }
+  const changeColoursDisplay = () => { setShowColours(!showColours); }
   const clearPoints = () => { 
     setPointdata([]);
     //setDelayedPointData([]);
@@ -385,7 +387,7 @@ function Voronoi() {
           .attr("fill-opacity", "0.3")
           .attr('stroke', 'black')
       }
-    }, [pointdata, showPoints, showDelaunay, showVoronoi, pointsChanged]
+    }, [pointdata, showPoints, showDelaunay, showVoronoi, showColours, pointsChanged]
   )
 
   return (
@@ -399,6 +401,9 @@ function Voronoi() {
         </Button><br/>
         <Button variant="primary" onClick={changeVoronoiDisplay}>
           {showVoronoi ? "Hide Voronoi" : "Show Voronoi"}
+        </Button><br/>
+        <Button variant="primary" onClick={changeColoursDisplay}>
+          {showColours ? "Hide Colours" : "Show Colours"}
         </Button><br/>
         <Button variant="primary" onClick={clearPoints}>Clear Points</Button><br/>
         <Button variant="primary" onClick={deletePoint}>Delete Point</Button><br/>

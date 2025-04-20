@@ -60,7 +60,7 @@
         "centerX": 0.0,
         "centerY": 0.0, 
         "startAngle": 5, 
-        "radius": 300, 
+        "radius": 500, 
         "sectors": 50, 
         "timedRelease": false, 
         "timeDelay": 50

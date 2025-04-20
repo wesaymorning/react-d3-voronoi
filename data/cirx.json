@@ -1,0 +1,149 @@
+[
+    {
+        "type": "archimedian",
+        "useCenter": false, 
+        "centerX": 1000.0, 
+        "centerY": 1000.0, 
+        "startRadius": 500, 
+        "stopRadius": 500, 
+        "startAngle": 0, 
+        "totalAngle": 180, 
+        "sectors": 50, 
+        "timedRelease": false, 
+        "timeDelay": 50
+    },
+    {
+        "type": "archimedian",
+        "useCenter": false, 
+        "centerX": 1000.0, 
+        "centerY": 900.0, 
+        "startRadius": 500, 
+        "stopRadius": 500, 
+        "startAngle": 0, 
+        "totalAngle": 180, 
+        "sectors": 50, 
+        "timedRelease": false, 
+        "timeDelay": 50
+    },
+    {
+        "type": "archimedian",
+        "useCenter": false, 
+        "centerX": 1000.0, 
+        "centerY": 800.0, 
+        "startRadius": 500, 
+        "stopRadius": 500, 
+        "startAngle": 0, 
+        "totalAngle": 180, 
+        "sectors": 50, 
+        "timedRelease": false, 
+        "timeDelay": 50
+    },
+    {
+        "type": "archimedian",
+        "useCenter": false, 
+        "centerX": 1000.0, 
+        "centerY": 700.0, 
+        "startRadius": 500, 
+        "stopRadius": 500, 
+        "startAngle": 0, 
+        "totalAngle": 180, 
+        "sectors": 50, 
+        "timedRelease": false, 
+        "timeDelay": 50
+    },
+    {
+        "type": "archimedian",
+        "useCenter": false, 
+        "centerX": 1000.0, 
+        "centerY": 600.0, 
+        "startRadius": 500, 
+        "stopRadius": 500, 
+        "startAngle": 0, 
+        "totalAngle": 180, 
+        "sectors": 50, 
+        "timedRelease": false, 
+        "timeDelay": 50
+    },
+    {
+        "type": "archimedian",
+        "useCenter": false, 
+        "centerX": 1000.0, 
+        "centerY": 500.0, 
+        "startRadius": 500, 
+        "stopRadius": 500, 
+        "startAngle": 0, 
+        "totalAngle": 180, 
+        "sectors": 50, 
+        "timedRelease": false, 
+        "timeDelay": 50
+    },
+    {
+        "type": "archimedian",
+        "useCenter": false, 
+        "centerX": 1000.0, 
+        "centerY": 400.0, 
+        "startRadius": 500, 
+        "stopRadius": 500, 
+        "startAngle": 0, 
+        "totalAngle": 180, 
+        "sectors": 50, 
+        "timedRelease": false, 
+        "timeDelay": 50
+    }
+    ,
+    {
+        "type": "archimedian",
+        "useCenter": false, 
+        "centerX": 1000.0, 
+        "centerY": 300.0, 
+        "startRadius": 500, 
+        "stopRadius": 500, 
+        "startAngle": 0, 
+        "totalAngle": 180, 
+        "sectors": 50, 
+        "timedRelease": false, 
+        "timeDelay": 50
+    }
+    ,
+    {
+        "type": "archimedian",
+        "useCenter": false, 
+        "centerX": 1000.0, 
+        "centerY": 200.0, 
+        "startRadius": 500, 
+        "stopRadius": 500, 
+        "startAngle": 0, 
+        "totalAngle": 180, 
+        "sectors": 50, 
+        "timedRelease": false, 
+        "timeDelay": 50
+    }
+    ,
+    {
+        "type": "archimedian",
+        "useCenter": false, 
+        "centerX": 1000.0, 
+        "centerY": 100.0, 
+        "startRadius": 500, 
+        "stopRadius": 500, 
+        "startAngle": 0, 
+        "totalAngle": 180, 
+        "sectors": 50, 
+        "timedRelease": false, 
+        "timeDelay": 50
+    }
+    ,
+    {
+        "type": "archimedian",
+        "useCenter": false, 
+        "centerX": 1000.0, 
+        "centerY": 0.0, 
+        "startRadius": 500, 
+        "stopRadius": 500, 
+        "startAngle": 0, 
+        "totalAngle": 180, 
+        "sectors": 50, 
+        "timedRelease": false, 
+        "timeDelay": 50
+    }
+]

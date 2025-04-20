@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "gen circles",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "data/gen_points.py",
+            "console": "integratedTerminal",
+            "args":[
+                "data/circles_001.json"
+            ]
+        },
+        {
+            "name": "gen circles 2",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "data/gen_circles.py",
+            "console": "integratedTerminal",
+            "args":[
+                "data/circles_001.json"
+            ]
+        }
+    ]
+}

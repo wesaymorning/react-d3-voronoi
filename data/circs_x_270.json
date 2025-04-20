@@ -1,0 +1,8 @@
+[
+    {
+        "type": "ellipse","useCenter": true, "centerX": 200.0, "centerY": 150.0, "ratio": 0.1, "radius": 400, "sectors": 100, "timedRelease": true, "timeDelay": 100
+    },
+    {
+        "type": "ellipse","useCenter": true, "centerX": 300.0, "centerY": 200.0, "ratio": 0.2, "radius": 400, "sectors": 100, "timedRelease": true, "timeDelay": 100
+    }
+]

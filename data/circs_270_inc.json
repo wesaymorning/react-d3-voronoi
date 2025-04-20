@@ -1,0 +1,54 @@
+[
+    {
+        "type": "archimedian",
+        "useCenter": true, 
+        "centerX": 100.0, 
+        "centerY": 100.0, 
+        "startRadius": 200, 
+        "stopRadius": 200, 
+        "startAngle": 0, 
+        "totalAngle": 270, 
+        "sectors": 50, 
+        "timedRelease": false, 
+        "timeDelay": 50
+    },
+    {
+        "type": "archimedian",
+        "useCenter": true, 
+        "centerX": 100.0, 
+        "centerY": 100.0, 
+        "startRadius": 225, 
+        "stopRadius": 225, 
+        "startAngle": 0, 
+        "totalAngle": 270, 
+        "sectors": 52, 
+        "timedRelease": false, 
+        "timeDelay": 50
+    },
+    {
+        "type": "archimedian",
+        "useCenter": true, 
+        "centerX": 100.0, 
+        "centerY": 100.0, 
+        "startRadius": 250, 
+        "stopRadius": 250, 
+        "startAngle": 0, 
+        "totalAngle": 270, 
+        "sectors": 54, 
+        "timedRelease": false, 
+        "timeDelay": 50
+    },
+    {
+        "type": "archimedian",
+        "useCenter": true, 
+        "centerX": 100.0, 
+        "centerY": 100.0, 
+        "startRadius": 275, 
+        "stopRadius": 275, 
+        "startAngle": 0, 
+        "totalAngle": 270, 
+        "sectors": 56, 
+        "timedRelease": false, 
+        "timeDelay": 50
+    }
+]

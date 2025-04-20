@@ -1,0 +1,12 @@
+[
+    {
+        "type": "archimedian","useCenter": true, "centerX": 100.0, "centerY": 100.0, "startRadius": 0, "stopRadius": 800, "startAngle": 0, "totalAngle": 3600, "sectors": 497, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "archimedian","useCenter": true, "centerX": 100.0, "centerY": 100.0, "startRadius": 0, "stopRadius": 800, "startAngle": 180, "totalAngle": 3600, "sectors": 497, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "archimedian","useCenter": true, "centerX": 100.0, "centerY": 100.0, "startRadius": 0, "stopRadius": 800, "startAngle": 270, "totalAngle": 3600, "sectors": 497, "timedRelease": false, "timeDelay": 50
+    }
+
+]

@@ -1,0 +1,20 @@
+[
+    {
+        "type": "archimedian","useCenter": true, "centerX": 100.0, "centerY": 100.0, "startRadius": 0, "stopRadius": 700, "startAngle": 0, "totalAngle": 3000, "sectors": 600, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "archimedian","useCenter": true, "centerX": 100.0, "centerY": 100.0, "startRadius": 0, "stopRadius": 700, "startAngle": 120, "totalAngle": 3000, "sectors": 600, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "archimedian","useCenter": true, "centerX": 100.0, "centerY": 100.0, "startRadius": 0, "stopRadius": 700, "startAngle": 240, "totalAngle": 3000, "sectors": 600, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "archimedian","useCenter": true, "centerX": 100.0, "centerY": 100.0, "startRadius": 0, "stopRadius": 700, "startAngle": 60, "totalAngle": 3000, "sectors": 700, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "archimedian","useCenter": true, "centerX": 100.0, "centerY": 100.0, "startRadius": 0, "stopRadius": 700, "startAngle": 180, "totalAngle": 3000, "sectors": 700, "timedRelease": false, "timeDelay": 50
+    },
+    {
+        "type": "archimedian","useCenter": true, "centerX": 100.0, "centerY": 100.0, "startRadius": 0, "stopRadius": 700, "startAngle": 300, "totalAngle": 3000, "sectors": 700, "timedRelease": false, "timeDelay": 50
+    }  
+]
