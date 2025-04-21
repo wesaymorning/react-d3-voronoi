@@ -2,10 +2,12 @@ import React, { useState, useEffect, useRef } from 'react'
 import * as d3 from "d3";
 import { Delaunay } from "d3";
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import AddCircle from './AddCircle';
 import AddEllipse from './AddEllipse';
 import AddArchimedean from './AddArchimedean';
 import LoadCommandFile from './LoadCommandFile';
+import Spiral from './SpiralCard';
 import './Voronoi.css';
 
 function Voronoi() {
@@ -38,6 +40,8 @@ function Voronoi() {
   const [showVoronoi, setShowVoronoi] = useState(true);
   const [showColours, setShowColours] = useState(false);
   const [pointsChanged, setPointsChanged] = useState(true);
+  const [spirals, setSpirals] = useState([]);
+  const [hidden, setHidden] = useState(true);
   
   const svgRef = useRef();
 
@@ -71,6 +75,37 @@ function Voronoi() {
           tempY
         ],
     ]);
+  };
+
+  const handleAddSpiral = () => {
+    setSpirals([...spirals, { enabled: true, useCenter: true, centerX: 0, centerY: 0, startRadius: 0, stopRadius: 100, startAngle:0, totalAngle:360, sectors:100}]);
+  };
+
+  const handleChangeSpiral = (event, index) => {
+    let { name, value } = event.target;
+    let onChangeValue = [...spirals];
+    onChangeValue[index][name] = parseInt(value);
+    setSpirals(onChangeValue);
+  };
+
+  function handleChangeEnabled(e, index) { 
+    let { name, value } = e.target;
+    let onChangeValue = [...spirals];
+    onChangeValue[index][name] = e.target.checked;
+    setSpirals(onChangeValue);
+  }
+
+  function handleChangeUseCenter(e, index) { 
+    let { name, value } = e.target;
+    let onChangeValue = [...spirals];
+    onChangeValue[index][name] = e.target.checked;
+    setSpirals(onChangeValue);
+  }
+
+  const handleDeleteSpiral = (index) => {
+    const newArray = [...spirals];
+    newArray.splice(index, 1);
+    setSpirals(newArray);
   };
 
   function deletePoint() {
@@ -387,7 +422,7 @@ function Voronoi() {
           .attr("fill-opacity", "0.3")
           .attr('stroke', 'black')
       }
-    }, [pointdata, showPoints, showDelaunay, showVoronoi, showColours, pointsChanged]
+    }, [pointdata, showPoints, showDelaunay, showVoronoi, showColours, pointsChanged, spirals]
   )
 
   return (
@@ -425,6 +460,24 @@ function Voronoi() {
         <LoadCommandFile 
           processCommandFile={processCommandFile}
         /><br/>
+        <div className="container">
+          <Button onClick={() => handleAddSpiral()}>Add Spiral</Button>
+          <br/>
+
+          {spirals === undefined ? 
+            <></>
+            :
+
+            <>       
+            {spirals.length === 0 ?         
+              <p>There are no spirals to be found....</p>
+              :         
+              spirals.map((item, index) => <Spiral index={index} spiral={item} spirals={spirals} setoSpirals={setSpirals}/>)       
+            }     
+        </> 
+      }
+        </div>
+        
       </div>
       <div className="voronoi" id="container" class="w3-container">
         <svg id="chart" ref={svgRef} width={width} height={height} onClick={addPoint}>

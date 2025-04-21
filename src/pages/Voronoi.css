@@ -12,7 +12,7 @@
 
   .w3-sidebar {
     height: 100%;
-    width: 200px;
+    width: 300px;
     background-color: #fff;
     position: fixed !important;
     z-index: 1;
@@ -25,5 +25,5 @@
     padding-bottom: 0.01em;
     background-image: linear-gradient(rgb(200, 125, 18), rgb(255, 123, 0));
     height: 100%;
-    margin-left: 200px;
+    margin-left: 300px;
   }
