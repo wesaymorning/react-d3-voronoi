@@ -3,6 +3,8 @@
         "barchart",
         "linechart",
         "pointdata",
+        "seto",
+        "usecenter",
         "Voronoi"
     ]
 }

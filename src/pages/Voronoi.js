@@ -78,7 +78,7 @@ function Voronoi() {
   };
 
   const handleAddSpiral = () => {
-    setSpirals([...spirals, { enabled: true, useCenter: true, centerX: 0, centerY: 0, startRadius: 0, stopRadius: 100, startAngle:0, totalAngle:360, sectors:100}]);
+    setSpirals([...spirals, { enabled: false, useCenter: true, centerX: 200, centerY: 200, startRadius: 200, stopRadius: 500, startAngle:0, totalAngle:360, sectors:100}]);
   };
 
   const handleChangeSpiral = (event, index) => {
@@ -374,8 +374,34 @@ function Voronoi() {
       return polygon ? "M" + polygon.join("L") + "Z" : null;
   }
 
+  function processSpiral(spiral) {
+    console.log(spiral);
+    if (spiral.enabled) {
+      addArchimedean(spiral.useCenter, 
+                     spiral.centerX,
+                     spiral.centerY, 
+                     spiral.startRadius, 
+                     spiral.stopRadius,
+                     spiral.startAngle, 
+                     spiral.totalAngle,
+                     spiral.sectors, 
+                     false, 
+                     0.0
+                    )
+    }
+  }
+
   useEffect(
     ()=>{
+
+      // process spirals list
+      if (spirals.length > 0) {
+        console.log(spirals.length);
+
+        setPointdata([]);
+
+        spirals.forEach(processSpiral)
+      }
 
       // Delaunay
       //const formattedData = pointdata.map((d) => [xScale(d.x), yScale(d.y)]);
@@ -467,7 +493,6 @@ function Voronoi() {
           {spirals === undefined ? 
             <></>
             :
-
             <>       
             {spirals.length === 0 ?         
               <p>There are no spirals to be found....</p>
