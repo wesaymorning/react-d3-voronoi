@@ -81,33 +81,6 @@ function Voronoi() {
     setSpirals([...spirals, { enabled: false, useCenter: true, centerX: 200, centerY: 200, startRadius: 200, stopRadius: 500, startAngle:0, totalAngle:360, sectors:100}]);
   };
 
-  const handleChangeSpiral = (event, index) => {
-    let { name, value } = event.target;
-    let onChangeValue = [...spirals];
-    onChangeValue[index][name] = parseInt(value);
-    setSpirals(onChangeValue);
-  };
-
-  function handleChangeEnabled(e, index) { 
-    let { name, value } = e.target;
-    let onChangeValue = [...spirals];
-    onChangeValue[index][name] = e.target.checked;
-    setSpirals(onChangeValue);
-  }
-
-  function handleChangeUseCenter(e, index) { 
-    let { name, value } = e.target;
-    let onChangeValue = [...spirals];
-    onChangeValue[index][name] = e.target.checked;
-    setSpirals(onChangeValue);
-  }
-
-  const handleDeleteSpiral = (index) => {
-    const newArray = [...spirals];
-    newArray.splice(index, 1);
-    setSpirals(newArray);
-  };
-
   function deletePoint() {
     if (pointdata.length > 0) {
       pointdata.pop();
