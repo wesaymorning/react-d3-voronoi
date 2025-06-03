@@ -32,7 +32,7 @@ function AddCircle(props) {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Circle parameters</Modal.Title>
+        <Modal.Title>Circle parameters</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <label>

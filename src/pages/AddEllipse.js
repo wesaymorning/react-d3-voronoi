@@ -41,6 +41,7 @@ function AddEllipse(props) {
               type="checkbox"
               checked={useCenter}
               onChange={handleChange}
+              width="100px"
             />
             Use window center
           </label><br/>
