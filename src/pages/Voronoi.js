@@ -209,6 +209,83 @@ function Voronoi() {
     timedRelease, 
     timeDelay) {
 
+    setSpirals([...spirals, { enabled: true, 
+                              useCenter: useCenter, 
+                              centerX: centerX, 
+                              centerY: centerY, 
+                              startRadius: startRadius, 
+                              stopRadius: stopRadius, 
+                              startAngle:startAngle, 
+                              totalAngle:totalAngle, 
+                              sectors:sectors}
+                ]
+              );
+
+    console.log('spiral:%d:%d:%d:%d:%d', startRadius, stopRadius, startAngle, totalAngle, sectors);
+      
+    if (useCenter) {
+      const svgRect = svgRef.current.getBoundingClientRect();
+      centerX = svgRect.width/2;
+      centerY = svgRect.height/2;
+    }
+
+    centerX = Number(centerX);
+    centerY = Number(centerY);
+    startRadius = Number(startRadius);
+    stopRadius = Number(stopRadius);
+    startAngle = Number(startAngle);
+    totalAngle = Number(totalAngle);
+    sectors = Number(sectors);
+    timeDelay = Number(timeDelay);
+    timedRelease = Boolean(timedRelease);
+    
+    let angularInc = totalAngle/sectors;
+    let angularOffset = startAngle * Math.PI/180;
+    let radiusInc = (stopRadius - startRadius)/sectors;
+    var radius = startRadius;
+
+    for (let i = 0; i < sectors; i++) {
+      let iFloat = parseFloat(i);
+      let circleX = centerX + (radius * Math.cos((iFloat * angularInc * Math.PI/180) - angularOffset));									
+			let circleY = centerY + (radius * Math.sin((iFloat * angularInc * Math.PI/180) - angularOffset));
+
+      radius += radiusInc;
+
+      let point = [circleX, circleY];
+
+      if (timedRelease) {
+        delayedPoints.push(point);
+      }
+      else {
+        setPointdata((prevPointdata) => [
+          ...prevPointdata,
+          point,
+        ]);
+      }
+    }
+
+    // if timedRelease, start timer
+    if (timedRelease) {
+      //setDelayedPointData(delayedPoints);
+      timerId = setInterval(() => {
+        addDelayedPoint();
+      }, timeDelay);
+    }
+  }
+
+  function addArchimedeanPoints(useCenter, 
+    centerX, 
+    centerY, 
+    startRadius, 
+    stopRadius, 
+    startAngle, 
+    totalAngle, 
+    sectors, 
+    timedRelease, 
+    timeDelay) {
+
+    //setSpirals([...spirals, { enabled: false, useCenter: true, centerX: 200, centerY: 200, startRadius: 200, stopRadius: 500, startAngle:0, totalAngle:360, sectors:100}]);
+
     console.log('spiral:%d:%d:%d:%d:%d', startRadius, stopRadius, startAngle, totalAngle, sectors);
       
     if (useCenter) {
@@ -350,7 +427,7 @@ function Voronoi() {
   function processSpiral(spiral) {
     console.log(spiral);
     if (spiral.enabled) {
-      addArchimedean(spiral.useCenter, 
+      addArchimedeanPoints(spiral.useCenter, 
                      spiral.centerX,
                      spiral.centerY, 
                      spiral.startRadius, 
@@ -460,7 +537,6 @@ function Voronoi() {
           processCommandFile={processCommandFile}
         /><br/>
         <div className="container">
-          <Button onClick={() => handleAddSpiral()}>Add Spiral</Button>
           <br/>
 
           {spirals === undefined ? 
