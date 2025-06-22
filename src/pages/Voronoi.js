@@ -2,12 +2,13 @@ import React, { useState, useEffect, useRef } from 'react'
 import * as d3 from "d3";
 import { Delaunay } from "d3";
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 import AddCircle from './AddCircle';
 import AddEllipse from './AddEllipse';
 import AddArchimedean from './AddArchimedean';
-import LoadCommandFile from './LoadCommandFile';
-import Spiral from './SpiralCard';
+import LoadCommandFile from '../FileOperations/LoadCommandFile';
+import SavePointsFile from '../FileOperations/SaveFile';
+import Spiral from '../cards/SpiralCard';
+import Circle from '../cards/CircleCard';
 import './Voronoi.css';
 
 function Voronoi() {
@@ -34,6 +35,7 @@ function Voronoi() {
   const yScale = d3.scaleLinear().domain([0, height]).range([0, height]);
 
   const [pointdata, setPointdata] = useState(data);
+  const [clickPointData, setClickPointData] = useState([]);
   const [delayedPointData, setDelayedPointData] = useState([]);
   const [showPoints, setShowPoints] = useState(true);
   const [showDelaunay, setShowDelaunay] = useState(false);
@@ -41,6 +43,7 @@ function Voronoi() {
   const [showColours, setShowColours] = useState(false);
   const [pointsChanged, setPointsChanged] = useState(true);
   const [spirals, setSpirals] = useState([]);
+  const [circles, setCircles] = useState([]);
   const [hidden, setHidden] = useState(true);
   
   const svgRef = useRef();
@@ -57,10 +60,16 @@ function Voronoi() {
   const changeColoursDisplay = () => { setShowColours(!showColours); }
   const clearPoints = () => { 
     setPointdata([]);
-    //setDelayedPointData([]);
+    setSpirals([]);
+    setCircles([]);
     delayedPoints = [];
+
+    changePointsChanged();
   }
-  const changePointsChanged = () => { setPointsChanged(!pointsChanged); }
+  const changePointsChanged = () => { 
+    setPointsChanged(!pointsChanged); 
+    console.log(circles);
+  }
 
   const addPoint = () => {
     var e = window.event;
@@ -75,10 +84,8 @@ function Voronoi() {
           tempY
         ],
     ]);
-  };
 
-  const handleAddSpiral = () => {
-    setSpirals([...spirals, { enabled: false, useCenter: true, centerX: 200, centerY: 200, startRadius: 200, stopRadius: 500, startAngle:0, totalAngle:360, sectors:100}]);
+    changePointsChanged();
   };
 
   function deletePoint() {
@@ -88,6 +95,53 @@ function Voronoi() {
       changePointsChanged();
     }
   }
+
+  function generatePoints() {
+    var deleted = false;
+
+    console.log('generate points');
+
+    setPointdata([]);
+
+    // process spirals list
+    if (spirals.length > 0) {
+      console.log(spirals.length);
+      deleted = true;
+      setPointdata([]);
+      spirals.forEach(processSpiral)
+    }
+
+    // process circles list
+    if (circles.length > 0) {
+      console.log('circles: ' + circles.length);
+      if (!deleted) { setPointdata([]); }
+      circles.forEach(processCircle)
+    }
+
+    changePointsChanged();
+  }
+
+
+
+    async function savePoints() {
+      // (A) CREATE BLOB OBJECT
+      var myBlob = new Blob(spirals, {type: "text/plain"});
+     
+      // (B) FILE HANDLER & FILE STREAM
+      const fileHandle = await window.showSaveFilePicker({
+        types: [{
+          description: "Text file",
+          accept: {"text/plain": [".json"]}
+        }]
+      });
+      const fileStream = await fileHandle.createWritable();
+     
+      // (C) WRITE FILE
+      await fileStream.write(myBlob);
+      await fileStream.close();
+    }
+
+
 
   function addDelayedPoint() {
     console.log('add delayed point');
@@ -106,24 +160,57 @@ function Voronoi() {
     }
   }
 
-  function addCircle(useCenter, centerX, centerY, startAngle, radius, sectors, timedRelease, timeDelay) {
+  function addCircle(useCenter, useRelative, centerX, centerY, radius, startAngle, totalAngle, sectors, timedRelease, timeDelay) {
+
+    console.log('add circle');
+
+    setCircles([...circles, { enabled: true, 
+                              useCenter: useCenter, 
+                              useRelative: useRelative,
+                              centerX: centerX, 
+                              centerY: centerY, 
+                              radius: radius,
+                              startAngle:startAngle, 
+                              totalAngle:totalAngle, 
+                              sectors:sectors
+                            }
+            ]
+          );
+  }
+
+  function addCirclePoints(useCenter, useRelative, circleCenterX, circleCenterY, radius, startAngle, totalAngle, sectors) {
+
+    var centerX;
+    var centerY;
  
     if (useCenter) {
       const svgRect = svgRef.current.getBoundingClientRect();
       centerX = svgRect.width/2;
       centerY = svgRect.height/2;
+
+      centerX = svgRect.width/2;
+      console.log('center x: ' + centerX);
+
+      // use relative distance 
+      if (useRelative) {
+        console.log('relative distance')
+        centerX = centerX + Number(circleCenterX);
+        centerY = centerY + Number(circleCenterY);
+
+        console.log('relative center x: ' + centerX);
+      }
+    }
+    else {
+      centerX = Number(circleCenterX);
+      centerY = Number(circleCenterY);
     }
 
-    let angularInc = 360/sectors;
-
-    centerX = Number(centerX);
-    centerY = Number(centerY);
     startAngle = Number(startAngle);
+    totalAngle = Number(totalAngle);
     radius = Number(radius);
     sectors = Number(sectors);
-    timeDelay = Number(timeDelay);
-    timedRelease = Boolean(timedRelease);
 
+    let angularInc = totalAngle/sectors;
     let angularOffset = startAngle * Math.PI/180;
 
     for (let i = 0; i < sectors; i++) {
@@ -133,23 +220,10 @@ function Voronoi() {
 
       let point = [circleX, circleY];
 
-      if (timedRelease) {
-        delayedPoints.push(point);
-      }
-      else {
-        setPointdata((prevPointdata) => [
-          ...prevPointdata,
-          point,
-        ]);
-      }
-    }
-
-    // if timedRelease, start timer
-    if (timedRelease) {
-      //setDelayedPointData(delayedPoints);
-      timerId = setInterval(() => {
-        addDelayedPoint();
-      }, timeDelay);
+      setPointdata((prevPointdata) => [
+        ...prevPointdata,
+        point,
+      ]);
     }
   }
 
@@ -280,11 +354,7 @@ function Voronoi() {
     stopRadius, 
     startAngle, 
     totalAngle, 
-    sectors, 
-    timedRelease, 
-    timeDelay) {
-
-    //setSpirals([...spirals, { enabled: false, useCenter: true, centerX: 200, centerY: 200, startRadius: 200, stopRadius: 500, startAngle:0, totalAngle:360, sectors:100}]);
+    sectors) {
 
     console.log('spiral:%d:%d:%d:%d:%d', startRadius, stopRadius, startAngle, totalAngle, sectors);
       
@@ -301,8 +371,6 @@ function Voronoi() {
     startAngle = Number(startAngle);
     totalAngle = Number(totalAngle);
     sectors = Number(sectors);
-    timeDelay = Number(timeDelay);
-    timedRelease = Boolean(timedRelease);
     
     let angularInc = totalAngle/sectors;
     let angularOffset = startAngle * Math.PI/180;
@@ -318,23 +386,10 @@ function Voronoi() {
 
       let point = [circleX, circleY];
 
-      if (timedRelease) {
-        delayedPoints.push(point);
-      }
-      else {
         setPointdata((prevPointdata) => [
           ...prevPointdata,
           point,
         ]);
-      }
-    }
-
-    // if timedRelease, start timer
-    if (timedRelease) {
-      //setDelayedPointData(delayedPoints);
-      timerId = setInterval(() => {
-        addDelayedPoint();
-      }, timeDelay);
     }
   }
 
@@ -441,17 +496,31 @@ function Voronoi() {
     }
   }
 
+  function processCircle(circle) {
+    console.log(circle);
+    if (circle.enabled) {
+      addCirclePoints(circle.useCenter,
+                      circle.useRelative,
+                      circle.centerX,
+                      circle.centerY, 
+                      circle.radius, 
+                      circle.startAngle, 
+                      circle.totalAngle,
+                      circle.sectors, 
+                     )
+    }
+  }
+
+  useEffect(
+    () => {
+      console.log('number of circles: ' + circles.length);
+      generatePoints();
+    }
+    ,[circles, spirals]
+  )
+
   useEffect(
     ()=>{
-
-      // process spirals list
-      if (spirals.length > 0) {
-        console.log(spirals.length);
-
-        setPointdata([]);
-
-        spirals.forEach(processSpiral)
-      }
 
       // Delaunay
       //const formattedData = pointdata.map((d) => [xScale(d.x), yScale(d.y)]);
@@ -498,12 +567,12 @@ function Voronoi() {
           .attr("fill-opacity", "0.3")
           .attr('stroke', 'black')
       }
-    }, [pointdata, showPoints, showDelaunay, showVoronoi, showColours, pointsChanged, spirals]
+    },[pointsChanged, showVoronoi, showDelaunay, showPoints]
   )
-
+    // [pointdata, showPoints, showDelaunay, showVoronoi, showColours, pointsChanged]
   return (
     <>
-      <div class="w3-sidebar">
+      <div className="w3-sidebar">
         <Button variant="primary" onClick={changePointsDisplay} width="100%">
           {showPoints ? "Hide Points" : "Show Points"}
         </Button><br/>
@@ -536,6 +605,10 @@ function Voronoi() {
         <LoadCommandFile 
           processCommandFile={processCommandFile}
         /><br/>
+        <SavePointsFile 
+          savePoints={savePoints}
+        /><br/>
+        <input type="button" value="Save File" onClick={savePoints}/>
         <div className="container">
           <br/>
 
@@ -543,13 +616,29 @@ function Voronoi() {
             <></>
             :
             <>       
-            {spirals.length === 0 ?         
-              <p>There are no spirals to be found....</p>
-              :         
-              spirals.map((item, index) => <Spiral index={index} spiral={item} spirals={spirals} setoSpirals={setSpirals}/>)       
-            }     
-        </> 
-      }
+              {spirals.length === 0 ?         
+                <></>
+                :         
+                spirals.map((item, index) => <Spiral index={index} spiral={item} spirals={spirals} setoSpirals={setSpirals}/>)       
+              }     
+            </> 
+          }
+        </div>
+
+        <div className="container">
+          <br/>
+
+          {circles === undefined ? 
+            <></>
+            :
+            <>       
+              {circles.length === 0 ?         
+                <></>
+                :         
+                circles.map((item, index) => <Circle index={index} circle={item} circles={circles} setoCircles={setCircles} genPoints={generatePoints}/>)       
+              }     
+            </> 
+          }
         </div>
         
       </div>
