@@ -5,14 +5,15 @@ import Modal from 'react-bootstrap/Modal';
 
 function AddArchimedean(props) {
   const [show, setShow] = useState(false);
-  const [centerX, setCenterX] = useState(props.centerX);
-  const [centerY, setCenterY] = useState(props.centerY);
+  const [centerX, setCenterX] = useState(200);
+  const [centerY, setCenterY] = useState(200);
   const [startRadius, setStartRadius] = useState(200);
   const [stopRadius, setStopRadius] = useState(400);
   const [startAngle, setStartAngle] = useState(0);
   const [totalAngle, setTotalAngle] = useState(360);
   const [sectors, setSectors] = useState(props.sectors);
   const [useCenter, setUseCenter] = useState(true);
+  const [useRelative, setUseRelative] = useState(false);
   const [timedRelease, setTimedRelease] = useState(false);
   const [timeDelay, setTimeDelay] = useState(100);
 
@@ -20,6 +21,7 @@ function AddArchimedean(props) {
   const handleShow = () => setShow(true);
 
   function handleChange(e) { setUseCenter(e.target.checked); }
+  function handleChangeRelative(e) { setUseRelative(e.target.checked); }
   function handleTimedChange(e) { setTimedRelease(e.target.checked); }
 
   return (
@@ -53,12 +55,21 @@ function AddArchimedean(props) {
               onChange={handleTimedChange}
             />
             Use timed delay point release
+          </label><br/>
+          <label>
+            <input
+              type="checkbox"
+              checked={useRelative}
+              onChange={handleChangeRelative}
+            />
+            Use relative distance
           </label>
           <form
               onSubmit={(e) => {
                   handleClose();
                   e.preventDefault();
                   props.addArchimedean(useCenter, 
+                                       useRelative,
                                        centerX, 
                                        centerY, 
                                        startRadius, 

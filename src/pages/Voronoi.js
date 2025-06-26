@@ -273,6 +273,7 @@ function Voronoi() {
   }
 
   function addArchimedean(useCenter, 
+    useRelative,
     centerX, 
     centerY, 
     startRadius, 
@@ -283,8 +284,11 @@ function Voronoi() {
     timedRelease, 
     timeDelay) {
 
+      console.log('add spiral');
+
     setSpirals([...spirals, { enabled: true, 
                               useCenter: useCenter, 
+                              useRelative: useRelative,
                               centerX: centerX, 
                               centerY: centerY, 
                               startRadius: startRadius, 
@@ -295,73 +299,39 @@ function Voronoi() {
                 ]
               );
 
-    console.log('spiral:%d:%d:%d:%d:%d', startRadius, stopRadius, startAngle, totalAngle, sectors);
-      
-    if (useCenter) {
-      const svgRect = svgRef.current.getBoundingClientRect();
-      centerX = svgRect.width/2;
-      centerY = svgRect.height/2;
-    }
-
-    centerX = Number(centerX);
-    centerY = Number(centerY);
-    startRadius = Number(startRadius);
-    stopRadius = Number(stopRadius);
-    startAngle = Number(startAngle);
-    totalAngle = Number(totalAngle);
-    sectors = Number(sectors);
-    timeDelay = Number(timeDelay);
-    timedRelease = Boolean(timedRelease);
-    
-    let angularInc = totalAngle/sectors;
-    let angularOffset = startAngle * Math.PI/180;
-    let radiusInc = (stopRadius - startRadius)/sectors;
-    var radius = startRadius;
-
-    for (let i = 0; i < sectors; i++) {
-      let iFloat = parseFloat(i);
-      let circleX = centerX + (radius * Math.cos((iFloat * angularInc * Math.PI/180) - angularOffset));									
-			let circleY = centerY + (radius * Math.sin((iFloat * angularInc * Math.PI/180) - angularOffset));
-
-      radius += radiusInc;
-
-      let point = [circleX, circleY];
-
-      if (timedRelease) {
-        delayedPoints.push(point);
-      }
-      else {
-        setPointdata((prevPointdata) => [
-          ...prevPointdata,
-          point,
-        ]);
-      }
-    }
-
-    // if timedRelease, start timer
-    if (timedRelease) {
-      //setDelayedPointData(delayedPoints);
-      timerId = setInterval(() => {
-        addDelayedPoint();
-      }, timeDelay);
-    }
   }
 
-  function addArchimedeanPoints(useCenter, 
-    centerX, 
-    centerY, 
+  function addArchimedeanPoints(useCenter, useRelative,
+    spiralCenterX, spiralCenterY, 
     startRadius, 
     stopRadius, 
     startAngle, 
     totalAngle, 
     sectors) {
 
-    console.log('spiral:%d:%d:%d:%d:%d', startRadius, stopRadius, startAngle, totalAngle, sectors);
+    var centerX;
+    var centerY;
       
     if (useCenter) {
       const svgRect = svgRef.current.getBoundingClientRect();
       centerX = svgRect.width/2;
       centerY = svgRect.height/2;
+
+      centerX = svgRect.width/2;
+      console.log('center x: ' + centerX);
+
+      // use relative distance 
+      if (useRelative) {
+        console.log('relative distance')
+        centerX = centerX + Number(spiralCenterX);
+        centerY = centerY + Number(spiralCenterY);
+
+        console.log('relative center x: ' + centerX);
+      }
+    }
+    else {
+      centerX = Number(spiralCenterX);
+      centerY = Number(spiralCenterY);
     }
 
     centerX = Number(centerX);
@@ -480,19 +450,19 @@ function Voronoi() {
   }
 
   function processSpiral(spiral) {
-    console.log(spiral);
     if (spiral.enabled) {
-      addArchimedeanPoints(spiral.useCenter, 
-                     spiral.centerX,
-                     spiral.centerY, 
-                     spiral.startRadius, 
-                     spiral.stopRadius,
-                     spiral.startAngle, 
-                     spiral.totalAngle,
-                     spiral.sectors, 
-                     false, 
-                     0.0
-                    )
+      addArchimedeanPoints(spiral.useCenter,
+                           spiral.useRelative,
+                           spiral.centerX,
+                           spiral.centerY, 
+                           spiral.startRadius, 
+                           spiral.stopRadius,
+                           spiral.startAngle, 
+                           spiral.totalAngle,
+                           spiral.sectors, 
+                           false, 
+                           0.0
+                          )
     }
   }
 
@@ -514,6 +484,7 @@ function Voronoi() {
   useEffect(
     () => {
       console.log('number of circles: ' + circles.length);
+      console.log('number of spirals: ' + spirals.length);
       generatePoints();
     }
     ,[circles, spirals]
@@ -545,7 +516,7 @@ function Voronoi() {
              .attr('key', index)
              .attr('cx', xScale(point[0]))
              .attr('cy', yScale(point[1]))
-             .attr('r', 1.3)
+             .attr('r', 2.0)
         });
       }
       
@@ -553,8 +524,8 @@ function Voronoi() {
         svg.append('path')
           .attr('d', delaunayPath)
           .attr('fill', 'transparent')
-          .attr('stroke', 'grey')
-          .attr('opacity', 0.8)
+          .attr('stroke', 'blue')
+          .attr('opacity', 0.6)
       }
 
       if (showVoronoi) {
