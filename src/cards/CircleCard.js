@@ -51,8 +51,6 @@ function Circle(props) {
         props.setoCircles(newArray);
         props.genPoints();
       };
-    
-      // 
 
     return (
         <>
@@ -109,7 +107,7 @@ function Circle(props) {
                     <button onClick={() => handleChangeCircleValueAdd(props.index, "centerX")}><GrAdd/></button>
                     
                   </a>
-                  <br/>
+                  
                   <Tooltip id="center-x-tooltip" />
 
                   <a data-tooltip-id="center-y-tooltip" data-tooltip-content="center Y" data-tooltip-place="top" >
@@ -131,7 +129,8 @@ function Circle(props) {
 
                   <br/>
 
-                  <label>radius   </label>
+                  <label>radius</label>
+                  <a data-tooltip-id="radius-tooltip" data-tooltip-content="radius" data-tooltip-place="top" >
                   <button onClick={() => handleChangeCircleValueDec(props.index, "radius")}><GrSubtract/></button>
                   <input
                     name="radius"
@@ -142,10 +141,12 @@ function Circle(props) {
                     onChange={(event) => handleChangeCircle(event, props.index)}
                   />
                   <button onClick={() => handleChangeCircleValueAdd(props.index, "radius")}><GrAdd/></button>
+                  </a>
+                  <Tooltip id="radius-tooltip" />
                   
                   <br/>
 
-                  <label>angle   </label>
+                  <label>angle</label>
                   <button onClick={() => handleChangeCircleValueDec(props.index, "startAngle")}><GrSubtract/></button>
                   <input
                     name="startAngle"
@@ -157,7 +158,6 @@ function Circle(props) {
                   />
                   <button onClick={() => handleChangeCircleValueAdd(props.index, "startAngle")}><GrAdd/></button>
                   
-                  <br/>
                   <button onClick={() => handleChangeCircleValueDec(props.index, "totalAngle")}><GrSubtract/></button>
                   <input
                     name="totalAngle"
@@ -170,7 +170,7 @@ function Circle(props) {
                   <button onClick={() => handleChangeCircleValueAdd(props.index, "totalAngle")}><GrAdd/></button>
                   
                   <br/>
-                  <label>sectors </label>
+                  <label>sectors</label>
                   <button onClick={() => handleChangeCircleValueDec(props.index, "sectors")}><GrSubtract/></button>
                   <input
                     name="sectors"

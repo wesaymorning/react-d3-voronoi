@@ -29,7 +29,8 @@
   }
 
   .cardo_input {
-    width: 70px;
+    width: 50px;
+    text-align: center;
   }
 
   .cardo_input_center_x {
