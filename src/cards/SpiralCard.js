@@ -57,7 +57,7 @@ function Spiral(props) {
         <>
 
             <div key={props.index}>
-              <Card style={{ width: '18rem' }}>
+              <Card style={{ width: '18rem' }} className="spiral_card">
                 <Card.Body>
                   <Card.Title>spiral</Card.Title>
 

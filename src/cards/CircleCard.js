@@ -55,7 +55,7 @@ function Circle(props) {
     return (
         <>
             <div key={props.index}>
-              <Card style={{ width: '18rem' }}>
+              <Card style={{ width: '18rem' }} className="circle_card">
                 <Card.Body>
                   <Card.Title>circle</Card.Title>
 
