@@ -36,3 +36,11 @@
   .cardo_input_center_x {
     width: 70px;
   }
+
+  .circle_card {
+    background-image: linear-gradient(rgb(18, 60, 200), rgb(0, 255, 255));
+  }
+
+  .spiral_card {
+    background-image: linear-gradient(rgb(170, 200, 18), rgb(255, 200, 0));
+  }
