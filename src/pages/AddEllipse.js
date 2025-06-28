@@ -22,6 +22,7 @@ function AddEllipse(props) {
 
   function handleChange(e) { setUseCenter(e.target.checked); }
   function handleTimedChange(e) { setTimedRelease(e.target.checked); }
+  function handleChangeRelative(e) { setUseRelative(e.target.checked); }
 
   return (
     <>
@@ -55,6 +56,14 @@ function AddEllipse(props) {
               onChange={handleTimedChange}
             />
             Use timed delay point release
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={useRelative}
+              onChange={handleChangeRelative}
+            />
+            Use relative distance
           </label>
           <form
               onSubmit={(e) => {

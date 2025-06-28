@@ -4,8 +4,8 @@ import Modal from 'react-bootstrap/Modal';
 
 function AddCircle(props) {
   const [show, setShow] = useState(false);
-  const [centerX, setCenterX] = useState(200);
-  const [centerY, setCenterY] = useState(200);
+  const [centerX, setCenterX] = useState(0);
+  const [centerY, setCenterY] = useState(0);
   const [radius, setRadius] = useState(props.radius);
   const [startAngle, setStartAngle] = useState(0);
   const [totalAngle, setTotalAngle] = useState(360);
