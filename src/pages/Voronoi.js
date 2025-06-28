@@ -9,6 +9,7 @@ import LoadCommandFile from '../FileOperations/LoadCommandFile';
 import SavePointsFile from '../FileOperations/SaveFile';
 import Spiral from '../cards/SpiralCard';
 import Circle from '../cards/CircleCard';
+import Ellipse from '../cards/EllipseCard';
 import './Voronoi.css';
 
 function Voronoi() {
@@ -44,6 +45,7 @@ function Voronoi() {
   const [pointsChanged, setPointsChanged] = useState(true);
   const [spirals, setSpirals] = useState([]);
   const [circles, setCircles] = useState([]);
+  const [ellipses, setEllipses] = useState([]);
   const [hidden, setHidden] = useState(true);
   
   const svgRef = useRef();
@@ -59,16 +61,17 @@ function Voronoi() {
   const changeVoronoiDisplay = () => { setShowVoronoi(!showVoronoi); }
   const changeColoursDisplay = () => { setShowColours(!showColours); }
   const clearPoints = () => { 
+    console.log('clear points');
     setPointdata([]);
     setSpirals([]);
     setCircles([]);
+    setEllipses([]);
     delayedPoints = [];
 
     changePointsChanged();
   }
   const changePointsChanged = () => { 
     setPointsChanged(!pointsChanged); 
-    console.log(circles);
   }
 
   const addPoint = () => {
@@ -97,7 +100,6 @@ function Voronoi() {
   }
 
   function generatePoints() {
-    var deleted = false;
 
     console.log('generate points');
 
@@ -106,17 +108,21 @@ function Voronoi() {
     // process spirals list
     if (spirals.length > 0) {
       console.log(spirals.length);
-      deleted = true;
-      setPointdata([]);
       spirals.forEach(processSpiral)
     }
 
     // process circles list
     if (circles.length > 0) {
       console.log('circles: ' + circles.length);
-      if (!deleted) { setPointdata([]); }
       circles.forEach(processCircle)
     }
+
+    // process ellipse list
+    if (ellipses.length > 0) {
+      console.log('ellipses: ' + ellipses.length);
+      ellipses.forEach(processEllipse)
+    }
+
 
     changePointsChanged();
   }
@@ -227,19 +233,64 @@ function Voronoi() {
     }
   }
 
-  function addEllipse(useCenter, centerX, centerY, radius, ratio, sectors, timedRelease, timeDelay) {
+  function addEllipse(useCenter, useRelative, centerX, centerY, radius, ratio, startAngle, totalAngle, sectors, timedRelease, timeDelay) {
+
+    console.log('add ellipse');
+
+    setEllipses([...ellipses, { enabled: true, 
+                                useCenter: useCenter, 
+                                useRelative: useRelative,
+                                centerX: centerX, 
+                                centerY: centerY, 
+                                radius: radius,
+                                ratio: ratio,
+                                startAngle:startAngle, 
+                                totalAngle:totalAngle, 
+                                sectors:sectors,
+
+                            }
+            ]
+          );
+  }
+
+  function addEllipsePoints(useCenter, useRelative, ellipseCenterX, ellipseCenterY, radius, ratio, startAngle, totalAngle, sectors, timedRelease, timeDelay) {
+
+    console.log('add ellipse points');
+
+    var centerX;
+    var centerY;
+ 
     if (useCenter) {
       const svgRect = svgRef.current.getBoundingClientRect();
       centerX = svgRect.width/2;
       centerY = svgRect.height/2;
+
+      centerX = svgRect.width/2;
+      console.log('center x: ' + centerX);
+
+      // use relative distance 
+      if (useRelative) {
+        console.log('relative distance')
+        centerX = centerX + Number(ellipseCenterX);
+        centerY = centerY + Number(ellipseCenterY);
+
+        console.log('ellipse relative center x: ' + centerX);
+      }
+    }
+    else {
+      centerX = Number(ellipseCenterX);
+      centerY = Number(ellipseCenterY);
     }
 
-    let angularInc = 360/sectors;
+    let angularInc = totalAngle/sectors;
+    let angularOffset = startAngle * Math.PI/180;
 
     centerX = Number(centerX);
     centerY = Number(centerY);
     radius = Number(radius);
     ratio = Number(ratio);
+    startAngle = Number(startAngle);
+    totalAngle = Number(totalAngle);
     sectors = Number(sectors);
     timeDelay = Number(timeDelay);
     timedRelease = Boolean(timedRelease);
@@ -247,28 +298,15 @@ function Voronoi() {
 
     for (let i = 0; i < sectors; i++) {
       let iFloat = parseFloat(i);
-      let circleX = centerX + (radius * Math.cos(iFloat * angularInc * Math.PI/180));									
-			let circleY = centerY + (yRadius * Math.sin(iFloat * angularInc * Math.PI/180));
+      let ellipseX = centerX + (radius * Math.cos((iFloat * angularInc * Math.PI/180) - angularOffset));									
+			let ellipseY = centerY + (yRadius * Math.sin((iFloat * angularInc * Math.PI/180) - angularOffset));
 
-      let point = [circleX, circleY];
+      let point = [ellipseX, ellipseY];
 
-      if (timedRelease) {
-        delayedPoints.push(point);
-      }
-      else {
-        setPointdata((prevPointdata) => [
-          ...prevPointdata,
-          point,
-        ]);
-      }
-    }
-
-    // if timedRelease, start timer
-    if (timedRelease) {
-      //setDelayedPointData(delayedPoints);
-      timerId = setInterval(() => {
-        addDelayedPoint();
-      }, timeDelay);
+      setPointdata((prevPointdata) => [
+        ...prevPointdata,
+        point,
+      ]);
     }
   }
 
@@ -477,6 +515,26 @@ function Voronoi() {
                       circle.startAngle, 
                       circle.totalAngle,
                       circle.sectors, 
+                      false,
+                      0.0
+                     )
+    }
+  }
+
+  function processEllipse(ellipse) {
+    console.log(ellipse);
+    if (ellipse.enabled) {
+      addEllipsePoints(ellipse.useCenter,
+                       ellipse.useRelative,
+                       ellipse.centerX,
+                       ellipse.centerY, 
+                       ellipse.radius, 
+                       ellipse.ratio,
+                       ellipse.startAngle, 
+                       ellipse.totalAngle,
+                       ellipse.sectors, 
+                       false,
+                       0.0
                      )
     }
   }
@@ -485,9 +543,10 @@ function Voronoi() {
     () => {
       console.log('number of circles: ' + circles.length);
       console.log('number of spirals: ' + spirals.length);
+      console.log('number of ellipses: ' + ellipses.length);
       generatePoints();
     }
-    ,[circles, spirals]
+    ,[circles, spirals, ellipses]
   )
 
   useEffect(
@@ -607,6 +666,22 @@ function Voronoi() {
                 <></>
                 :         
                 circles.map((item, index) => <Circle index={index} circle={item} circles={circles} setoCircles={setCircles} genPoints={generatePoints}/>)       
+              }     
+            </> 
+          }
+        </div>
+
+        <div className="container">
+          <br/>
+
+          {ellipses === undefined ? 
+            <></>
+            :
+            <>       
+              {ellipses.length === 0 ?         
+                <></>
+                :         
+                ellipses.map((item, index) => <Ellipse index={index} ellipse={item} ellipses={ellipses} setoEllipses={setEllipses} genPoints={generatePoints}/>)       
               }     
             </> 
           }

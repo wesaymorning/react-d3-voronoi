@@ -5,12 +5,15 @@ import Modal from 'react-bootstrap/Modal';
 
 function AddEllipse(props) {
   const [show, setShow] = useState(false);
-  const [centerX, setCenterX] = useState(props.centerX);
-  const [centerY, setCenterY] = useState(props.centerY);
+  const [centerX, setCenterX] = useState(0);
+  const [centerY, setCenterY] = useState(0);
   const [radius, setRadius] = useState(props.radius);
   const [ratio, setRatio] = useState(1.5);
+  const [startAngle, setStartAngle] = useState(0);
+  const [totalAngle, setTotalAngle] = useState(360);
   const [sectors, setSectors] = useState(props.sectors);
   const [useCenter, setUseCenter] = useState(true);
+  const [useRelative, setUseRelative] = useState(false);
   const [timedRelease, setTimedRelease] = useState(false);
   const [timeDelay, setTimeDelay] = useState(100);
 
@@ -57,7 +60,7 @@ function AddEllipse(props) {
               onSubmit={(e) => {
                   handleClose();
                   e.preventDefault();
-                  props.addEllipse(useCenter, centerX, centerY, radius, ratio, sectors, timedRelease, timeDelay);
+                  props.addEllipse(useCenter, useRelative, centerX, centerY, radius, ratio, startAngle, totalAngle, sectors, timedRelease, timeDelay);
               }}
               id="editmodal"
               className="w-full max-w-sm"
@@ -143,6 +146,48 @@ function AddEllipse(props) {
                   value={ratio}
                   onChange={(e) => {
                     setRatio(e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="md:flex md:items-center mb-6">
+              <div className="md:w-1/3">
+                <label
+                  className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                >
+                  Start angle 
+                </label>
+              </div>
+              <div className="md:w-2/3">
+                <input
+                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  id="startAngle"
+                  type="number"
+                  value={startAngle}
+                  onChange={(e) => {
+                    setStartAngle(e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="md:flex md:items-center mb-6">
+              <div className="md:w-1/3">
+                <label
+                  className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                >
+                  Total angle 
+                </label>
+              </div>
+              <div className="md:w-2/3">
+                <input
+                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  id="totalAngle"
+                  type="number"
+                  value={totalAngle}
+                  onChange={(e) => {
+                    setTotalAngle(e.target.value);
                   }}
                 />
               </div>
