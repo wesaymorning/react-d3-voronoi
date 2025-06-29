@@ -5,8 +5,8 @@ import Modal from 'react-bootstrap/Modal';
 
 function AddArchimedean(props) {
   const [show, setShow] = useState(false);
-  const [centerX, setCenterX] = useState(200);
-  const [centerY, setCenterY] = useState(200);
+  const [centerX, setCenterX] = useState(0);
+  const [centerY, setCenterY] = useState(0);
   const [startRadius, setStartRadius] = useState(200);
   const [stopRadius, setStopRadius] = useState(400);
   const [startAngle, setStartAngle] = useState(0);
@@ -83,7 +83,8 @@ function AddArchimedean(props) {
               id="editmodal"
               className="w-full max-w-sm"
           >
-            {useCenter ? <></> :
+          
+          {(!useCenter || useRelative) ? 
             <>
             <div className="md:flex md:items-center mb-6">
               <div className="md:w-1/3">
@@ -124,7 +125,7 @@ function AddArchimedean(props) {
                 />
               </div>
             </div>
-            </>
+            </> : <></>
             }
 
             <div className="md:flex md:items-center mb-6">
