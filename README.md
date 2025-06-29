@@ -24,3 +24,4 @@ A left mouse button click will drop a point at the cursor position within the sv
 Add relative distance option for shape center. 
 Save points/structures to json local file.
 Move structure functions to structure files.
+Fix useCenter & useRelative in input popups

@@ -56,7 +56,7 @@ function AddEllipse(props) {
               onChange={handleTimedChange}
             />
             Use timed delay point release
-          </label>
+          </label><br/>
           <label>
             <input
               type="checkbox"
@@ -74,7 +74,7 @@ function AddEllipse(props) {
               id="editmodal"
               className="w-full max-w-sm"
           >
-            {useCenter ? <></> :
+          {(!useCenter || useRelative) ? 
             <>
             <div className="md:flex md:items-center mb-6">
               <div className="md:w-1/3">
@@ -115,7 +115,7 @@ function AddEllipse(props) {
                 />
               </div>
             </div>
-            </>
+            </> : <></>
             }
 
             <div className="md:flex md:items-center mb-6">

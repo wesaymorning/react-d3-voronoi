@@ -127,7 +127,9 @@ function Spiral(props) {
                   <br/>
 
                   <label>radius   </label>
+                  <a data-tooltip-id="start-radius-tooltip" data-tooltip-content="start radius" data-tooltip-place="top" >
                   <button onClick={() => handleChangeSpiralValueDec(props.index, "startRadius")}><GrSubtract/></button>
+                  
                   <input
                     name="startRadius"
                     type="text"
@@ -137,7 +139,11 @@ function Spiral(props) {
                     onChange={(event) => handleChangeSpiral(event, props.index)}
                     width="50px"
                   />
+                  </a>
+                  
                   <button onClick={() => handleChangeSpiralValueAdd(props.index, "startRadius")}><GrAdd/></button>
+                  <Tooltip id="start-radius-tooltip" />
+                  <a data-tooltip-id="stop-radius-tooltip" data-tooltip-content="stop radius" data-tooltip-place="top" >
                   <button onClick={() => handleChangeSpiralValueDec(props.index, "stopRadius")}><GrSubtract/></button>
                   <input
                     name="stopRadius"
@@ -147,10 +153,13 @@ function Spiral(props) {
                     value={props.spiral.stopRadius}
                     onChange={(event) => handleChangeSpiral(event, props.index)}
                   />
+                  </a>
+                  <Tooltip id="stop-radius-tooltip" />
                   <button onClick={() => handleChangeSpiralValueAdd(props.index, "stopRadius")}><GrAdd/></button>
                   <br/>
 
                   <label>angle</label>
+                  <a data-tooltip-id="start-angle-tooltip" data-tooltip-content="start angle" data-tooltip-place="top" >
                   <button onClick={() => handleChangeSpiralValueDec(props.index, "startAngle")}><GrSubtract/></button>
                   <input
                     name="startAngle"
@@ -160,7 +169,10 @@ function Spiral(props) {
                     value={props.spiral.startAngle}
                     onChange={(event) => handleChangeSpiral(event, props.index)}
                   />
+                  </a>
+                  <Tooltip id="start-angle-tooltip" />
                   <button onClick={() => handleChangeSpiralValueAdd(props.index, "startAngle")}><GrAdd/></button>
+                  <a data-tooltip-id="total-angle-tooltip" data-tooltip-content="total angle" data-tooltip-place="top" >
                   <button onClick={() => handleChangeSpiralValueDec(props.index, "totalAngle")}><GrSubtract/></button>
                   <input
                     name="totalAngle"
@@ -170,6 +182,8 @@ function Spiral(props) {
                     value={props.spiral.totalAngle}
                     onChange={(event) => handleChangeSpiral(event, props.index)}
                   />
+                  </a>
+                  <Tooltip id="total-angle-tooltip" />
                   <button onClick={() => handleChangeSpiralValueAdd(props.index, "totalAngle")}><GrAdd/></button>
                   <br/>
                   <label>sectors</label>
