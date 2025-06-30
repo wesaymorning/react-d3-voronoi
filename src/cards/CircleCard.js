@@ -66,8 +66,6 @@ function Circle(props) {
                                               }
             ]
           );
-
-          props.genPoints();
       };
 
     return (
