@@ -1,7 +1,7 @@
 import Card from 'react-bootstrap/Card';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { Tooltip } from 'react-tooltip';
-import { GrAdd, GrSubtract, GrTrash } from "react-icons/gr";
+import { GrAdd, GrSubtract, GrTrash, GrCopy } from "react-icons/gr";
 
 function Circle(props) {
 
@@ -50,6 +50,24 @@ function Circle(props) {
         newArray.splice(index, 1);
         props.setoCircles(newArray);
         props.genPoints();
+      };
+
+      const handleCopyCircle = () => {
+
+        props.setoCircles([...props.circles, { enabled: true, 
+                                               useCenter: props.circle.useCenter, 
+                                               useRelative: props.circle.useRelative,
+                                               centerX: props.circle.centerX, 
+                                               centerY: props.circle.centerY, 
+                                               radius: props.circle.radius,
+                                               startAngle: props.circle.startAngle, 
+                                               totalAngle: props.circle.totalAngle, 
+                                               sectors: props.circle.sectors
+                                              }
+            ]
+          );
+
+          props.genPoints();
       };
 
     return (
@@ -184,6 +202,9 @@ function Circle(props) {
                   
                 <button onClick={() => handleDeleteCircle(props.index)}>
                   <GrTrash />
+                </button>
+                <button onClick={() => handleCopyCircle()}>
+                  <GrCopy />
                 </button>
 
                 </Card.Body>
