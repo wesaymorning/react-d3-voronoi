@@ -62,6 +62,7 @@ function Voronoi() {
   const changeColoursDisplay = () => { setShowColours(!showColours); }
   const clearPoints = () => { 
     console.log('clear points');
+    setClickPointData([]);
     setPointdata([]);
     setSpirals([]);
     setCircles([]);
@@ -82,6 +83,14 @@ function Voronoi() {
 
     setPointdata((prevPointdata) => [
         ...prevPointdata,
+        [
+          tempX,
+          tempY
+        ],
+    ]);
+
+    setClickPointData((prevClickPointdata) => [
+        ...prevClickPointdata,
         [
           tempX,
           tempY
@@ -123,6 +132,10 @@ function Voronoi() {
       ellipses.forEach(processEllipse)
     }
 
+    //setPointdata((prevPointdata) => [
+    //    ...prevPointdata,
+    //    clickPointData,
+    //]);
 
     changePointsChanged();
   }
