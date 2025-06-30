@@ -1,7 +1,7 @@
 import Card from 'react-bootstrap/Card';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { Tooltip } from 'react-tooltip'
-import { GrAdd, GrSubtract, GrTrash } from "react-icons/gr";
+import { GrAdd, GrSubtract, GrTrash, GrCopy } from "react-icons/gr";
 
 function Spiral(props) {
 
@@ -49,6 +49,22 @@ function Spiral(props) {
         const newArray = [...props.spirals];
         newArray.splice(index, 1);
         props.setoSpirals(newArray);
+      };
+
+      const handleCopySpiral = () => {
+        props.setoSpirals([...props.spirals, { enabled: true, 
+                                               useCenter: props.spiral.useCenter, 
+                                               useRelative: props.spiral.useRelative,
+                                               centerX: props.spiral.centerX, 
+                                               centerY: props.spiral.centerY, 
+                                               startRadius: props.spiral.startRadius, 
+                                               stopRadius: props.spiral.stopRadius,
+                                               startAngle: props.spiral.startAngle, 
+                                               totalAngle: props.spiral.totalAngle, 
+                                               sectors: props.spiral.sectors
+                                              }
+            ]
+          );
       };
     
       // 
@@ -198,7 +214,7 @@ function Spiral(props) {
                   />
                   <button onClick={() => handleChangeSpiralValueAdd(props.index, "sectors")}><GrAdd/></button>
                 <button onClick={() => handleDeleteSpiral(props.index)}><GrTrash/></button>
-
+                <button onClick={() => handleCopySpiral()}><GrCopy /></button>
                 </Card.Body>
               </Card>
             </div>
