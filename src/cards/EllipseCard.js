@@ -1,7 +1,7 @@
 import Card from 'react-bootstrap/Card';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { Tooltip } from 'react-tooltip';
-import { GrAdd, GrSubtract, GrTrash } from "react-icons/gr";
+import { GrAdd, GrSubtract, GrTrash, GrCopy } from "react-icons/gr";
 
 function Ellipse(props) {
 
@@ -61,6 +61,25 @@ function Ellipse(props) {
         newArray.splice(index, 1);
         props.setoEllipses(newArray);
         props.genPoints();
+      };
+
+      const handleCopyEllipse = () => {
+
+        props.setoEllipses([...props.ellipses, { enabled: props.ellipse.enabled, 
+                                                 useCenter: props.ellipse.useCenter, 
+                                                 useRelative: props.ellipse.useRelative,
+                                                 centerX: props.ellipse.centerX, 
+                                                 centerY: props.ellipse.centerY, 
+                                                 radius: props.ellipse.radius,
+                                                 ratio: props.ellipse.ratio,
+                                                 startAngle: props.ellipse.startAngle, 
+                                                 totalAngle: props.ellipse.totalAngle, 
+                                                 sectors: props.ellipse.sectors,
+
+                            }
+            ]
+          );
+
       };
 
     return (
@@ -210,9 +229,8 @@ function Ellipse(props) {
                   />
                   <button onClick={() => handleChangeEllipseValueAdd(props.index, "sectors")}><GrAdd/></button>
                   
-                <button onClick={() => handleDeleteEllipse(props.index)}>
-                  <GrTrash />
-                </button>
+                <button onClick={() => handleDeleteEllipse(props.index)}><GrTrash /></button>
+                <button onClick={() => handleCopyEllipse()}><GrCopy/></button>
 
                 </Card.Body>
               </Card>
