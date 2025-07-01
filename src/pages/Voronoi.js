@@ -518,7 +518,6 @@ function Voronoi() {
   }
 
   function processCircle(circle) {
-    console.log(circle);
     if (circle.enabled) {
       addCirclePoints(circle.useCenter,
                       circle.useRelative,
@@ -535,7 +534,6 @@ function Voronoi() {
   }
 
   function processEllipse(ellipse) {
-    console.log(ellipse);
     if (ellipse.enabled) {
       addEllipsePoints(ellipse.useCenter,
                        ellipse.useRelative,
