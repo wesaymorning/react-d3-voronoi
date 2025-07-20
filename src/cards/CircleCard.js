@@ -54,7 +54,7 @@ function Circle(props) {
 
       const handleCopyCircle = () => {
 
-        props.setoCircles([...props.circles, { enabled: true, 
+        props.setoCircles([...props.circles, { enabled: props.circle.enabled, 
                                                useCenter: props.circle.useCenter, 
                                                useRelative: props.circle.useRelative,
                                                centerX: props.circle.centerX, 
@@ -70,7 +70,7 @@ function Circle(props) {
 
     return (
         <>
-            <div key={props.index}>
+            <div key={props.index} class="card_container">
               <Card style={{ width: '18rem' }} className="circle_card">
                 <Card.Body>
                   <Card.Title>circle</Card.Title>
@@ -198,11 +198,11 @@ function Circle(props) {
                   />
                   <button onClick={() => handleChangeCircleValueAdd(props.index, "sectors")}><GrAdd/></button>
                   
-                <button onClick={() => handleDeleteCircle(props.index)}>
-                  <GrTrash />
+                <button className="circle_deleto" onClick={() => handleDeleteCircle(props.index)}>
+                  <GrTrash size={28}/>
                 </button>
-                <button onClick={() => handleCopyCircle()}>
-                  <GrCopy />
+                <button className="circle_copy" onClick={() => handleCopyCircle()}>
+                  <GrCopy size={28}/>
                 </button>
 
                 </Card.Body>

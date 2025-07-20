@@ -444,9 +444,11 @@ function Voronoi() {
         break;
       case "circle":
         addCircle(jObject["useCenter"], 
+                  jObject["useCenter"],
                   jObject["centerX"], 
                   jObject["centerY"], 
-                  jObject["startAngle"], 
+                  jObject["startAngle"],
+                  360, 
                   jObject["radius"], 
                   jObject["sectors"], 
                   jObject["timedRelease"], 
@@ -604,9 +606,9 @@ function Voronoi() {
         svg.append('path')
           .attr('d', voronoiPath)
           .attr('fill', 'red')
-          .attr("fill", function() {return color()})
           .attr("fill-opacity", "0.3")
           .attr('stroke', 'black')
+          
       }
     },[pointsChanged, showVoronoi, showDelaunay, showPoints]
   )

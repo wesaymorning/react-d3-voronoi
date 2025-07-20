@@ -37,8 +37,32 @@
     width: 70px;
   }
 
+  .card_container {
+    height: 200px;
+    position: relative;
+  }
+
   .circle_card {
     background-image: linear-gradient(rgba(18, 118, 200, 0.737), rgb(0, 255, 255));
+    position:relative;
+  }
+
+  .circle_deleto {
+    margin: 0;
+    position: absolute;
+    top: 80%;
+    left: 90%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  .circle_copy {
+    margin: 0;
+    position: absolute;
+    top: 20%;
+    left: 90%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
   }
 
   .spiral_card {
