@@ -52,7 +52,7 @@ function Spiral(props) {
       };
 
       const handleCopySpiral = () => {
-        props.setoSpirals([...props.spirals, { enabled: true, 
+        props.setoSpirals([...props.spirals, { enabled: props.spiral.enabled,
                                                useCenter: props.spiral.useCenter, 
                                                useRelative: props.spiral.useRelative,
                                                centerX: props.spiral.centerX, 
