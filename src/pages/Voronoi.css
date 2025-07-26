@@ -42,10 +42,7 @@
     position: relative;
   }
 
-  .circle_card {
-    background-image: linear-gradient(rgba(18, 118, 200, 0.737), rgb(0, 255, 255));
-    position:relative;
-  }
+
 
   .circle_deleto {
     margin: 0;
@@ -71,4 +68,13 @@
 
   .ellipse_card {
     background-image: linear-gradient(rgb(200, 91, 18), rgb(255, 200, 0));
+  }
+
+  .line_card {
+    background-image: linear-gradient(rgb(48, 17, 184), rgb(255, 200, 0));
+  }
+
+  .circle_card {
+    background-image: linear-gradient(rgba(18, 118, 200, 0.737), rgb(0, 255, 255));
+    position:relative;
   }

@@ -4,12 +4,14 @@ import { Delaunay } from "d3";
 import Button from 'react-bootstrap/Button';
 import AddCircle from './AddCircle';
 import AddEllipse from './AddEllipse';
+import AddLine from './AddLine';
 import AddArchimedean from './AddArchimedean';
 import LoadCommandFile from '../FileOperations/LoadCommandFile';
 import SavePointsFile from '../FileOperations/SaveFile';
 import Spiral from '../cards/SpiralCard';
 import Circle from '../cards/CircleCard';
 import Ellipse from '../cards/EllipseCard';
+import Line from '../cards/LineCard';
 import './Voronoi.css';
 
 function Voronoi() {
@@ -46,6 +48,7 @@ function Voronoi() {
   const [spirals, setSpirals] = useState([]);
   const [circles, setCircles] = useState([]);
   const [ellipses, setEllipses] = useState([]);
+  const [lines, setLines] = useState([]);
   const [hidden, setHidden] = useState(true);
   
   const svgRef = useRef();
@@ -130,6 +133,12 @@ function Voronoi() {
     if (ellipses.length > 0) {
       console.log('ellipses: ' + ellipses.length);
       ellipses.forEach(processEllipse)
+    }
+
+    // process line list
+    if (lines.length > 0) {
+      console.log('lines: ' + lines.length);
+      lines.forEach(processLine)
     }
 
     //setPointdata((prevPointdata) => [
@@ -232,7 +241,7 @@ function Voronoi() {
     let angularInc = totalAngle/sectors;
     let angularOffset = startAngle * Math.PI/180;
 
-    for (let i = 0; i < sectors; i++) {
+    for (let i = 0; i <= sectors; i++) {
       let iFloat = parseFloat(i);
       let circleX = centerX + (radius * Math.cos((iFloat * angularInc * Math.PI/180) - angularOffset));									
 			let circleY = centerY + (radius * Math.sin((iFloat * angularInc * Math.PI/180) - angularOffset));
@@ -309,7 +318,7 @@ function Voronoi() {
     timedRelease = Boolean(timedRelease);
     let yRadius = ratio * radius;
 
-    for (let i = 0; i < sectors; i++) {
+    for (let i = 0; i <= sectors; i++) {
       let iFloat = parseFloat(i);
       let ellipseX = centerX + (radius * Math.cos((iFloat * angularInc * Math.PI/180) - angularOffset));									
 			let ellipseY = centerY + (yRadius * Math.sin((iFloat * angularInc * Math.PI/180) - angularOffset));
@@ -335,7 +344,7 @@ function Voronoi() {
     timedRelease, 
     timeDelay) {
 
-      console.log('add spiral');
+    console.log('add spiral');
 
     setSpirals([...spirals, { enabled: true, 
                               useCenter: useCenter, 
@@ -398,7 +407,7 @@ function Voronoi() {
     let radiusInc = (stopRadius - startRadius)/sectors;
     var radius = startRadius;
 
-    for (let i = 0; i < sectors; i++) {
+    for (let i = 0; i <= sectors; i++) {
       let iFloat = parseFloat(i);
       let circleX = centerX + (radius * Math.cos((iFloat * angularInc * Math.PI/180) - angularOffset));									
 			let circleY = centerY + (radius * Math.sin((iFloat * angularInc * Math.PI/180) - angularOffset));
@@ -406,6 +415,77 @@ function Voronoi() {
       radius += radiusInc;
 
       let point = [circleX, circleY];
+
+        setPointdata((prevPointdata) => [
+          ...prevPointdata,
+          point,
+        ]);
+    }
+  }
+
+  function addLine(
+    useCenter, 
+    useRelative,
+    x1, 
+    y1, 
+    x2, 
+    y2,  
+    sectors,
+  ) {
+
+    console.log('add line');
+
+    setLines([...lines, { enabled: true, 
+                          useCenter: useCenter, 
+                          useRelative: useRelative,
+                          x1: x1, 
+                          y1: y1,
+                          x2: x2, 
+                          y2: y2,  
+                          sectors:sectors
+                        }
+                ]
+              );
+  }
+
+  function addLinePoints(
+    useCenter, 
+    useRelative,
+    x1,
+    y1,
+    x2,
+    y2,
+    sectors) {
+
+    var centerX;
+    var centerY;
+      
+    if (useCenter) {
+      const svgRect = svgRef.current.getBoundingClientRect();
+      centerX = svgRect.width/2;
+      centerY = svgRect.height/2;
+
+      centerX = svgRect.width/2;
+      console.log('center x: ' + centerX);
+    }
+
+    centerX = Number(centerX);
+    centerY = Number(centerY);
+    x1 = Number(x1);
+    y1 = Number(y1);
+    x2 = Number(x2);
+    y2 = Number(y2);
+    sectors = Number(sectors);
+    
+    let xInc = (x2 - x1)/sectors;
+    let yInc = (y2 - y1)/sectors;
+
+    for (let i = 0; i <= sectors; i++) {
+      let iFloat = parseFloat(i);
+      let lineX = centerX + x1 + (iFloat * xInc);
+      let lineY = centerY + y1 + (iFloat * yInc);										
+
+      let point = [lineX, lineY];
 
         setPointdata((prevPointdata) => [
           ...prevPointdata,
@@ -552,14 +632,28 @@ function Voronoi() {
     }
   }
 
+  function processLine(line) {
+    if (line.enabled) {
+      addLinePoints(line.useCenter,
+                    line.useRelative,
+                    line.x1,
+                    line.y1,
+                    line.x2,
+                    line.y2,
+                    line.sectors, 
+                     )
+    }
+  }
+
   useEffect(
     () => {
       console.log('number of circles: ' + circles.length);
       console.log('number of spirals: ' + spirals.length);
       console.log('number of ellipses: ' + ellipses.length);
+      console.log('number of lines: ' + lines.length);
       generatePoints();
     }
-    ,[circles, spirals, ellipses]
+    ,[circles, spirals, ellipses, lines]
   )
 
   useEffect(
@@ -645,6 +739,14 @@ function Voronoi() {
           sectors="100" 
           addEllipse={addEllipse}
         /><br/>
+        <AddLine 
+          x1="200"
+          y1="200"
+          x2="400"
+          y2="500"  
+          sectors="100" 
+          addLine={addLine}
+        /><br/>
         <LoadCommandFile 
           processCommandFile={processCommandFile}
         /><br/>
@@ -695,6 +797,22 @@ function Voronoi() {
                 <></>
                 :         
                 ellipses.map((item, index) => <Ellipse index={index} ellipse={item} ellipses={ellipses} setoEllipses={setEllipses} genPoints={generatePoints}/>)       
+              }     
+            </> 
+          }
+        </div>
+
+        <div className="container">
+          <br/>
+
+          {lines === undefined ? 
+            <></>
+            :
+            <>       
+              {lines.length === 0 ?         
+                <></>
+                :         
+                lines.map((item, index) => <Line index={index} line={item} lines={lines} setoLines={setLines} genPoints={generatePoints}/>)       
               }     
             </> 
           }

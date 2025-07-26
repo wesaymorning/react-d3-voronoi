@@ -21,7 +21,11 @@ You may also see any lint errors in the console.
 A left mouse button click will drop a point at the cursor position within the svg canvas. This will trigger a recalculation of the delaunay & voronoi diagrams.
 
 ### todo
-Add relative distance option for shape center. 
++ Add relative distance option for shape center. 
 Save points/structures to json local file.
 Move structure functions to structure files.
-Fix useCenter & useRelative in input popups
++ Fix useCenter & useRelative in input popups
+= Handle window resizing
+= polygon colours
+= complete mouse over hints
+= move copy & delete buttons
