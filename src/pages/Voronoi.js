@@ -151,23 +151,25 @@ function Voronoi() {
 
 
 
-    async function savePoints() {
-      // (A) CREATE BLOB OBJECT
-      var myBlob = new Blob(spirals, {type: "text/plain"});
-     
-      // (B) FILE HANDLER & FILE STREAM
-      const fileHandle = await window.showSaveFilePicker({
-        types: [{
-          description: "Text file",
-          accept: {"text/plain": [".json"]}
-        }]
-      });
-      const fileStream = await fileHandle.createWritable();
-     
-      // (C) WRITE FILE
-      await fileStream.write(myBlob);
-      await fileStream.close();
-    }
+  function savePoints(fileName) {
+    
+    if (!fileName) return; // User cancelled
+
+    let currentElements = {};
+    currentElements["circles"] = circles;
+    currentElements["spirals"] = spirals;
+    currentElements["ellipses"] = ellipses;
+
+    const blob = new Blob([JSON.stringify(currentElements, null, 2)], {
+      type: 'application/json',
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${fileName}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
 
 
 
@@ -753,7 +755,6 @@ function Voronoi() {
         <SavePointsFile 
           savePoints={savePoints}
         /><br/>
-        <input type="button" value="Save File" onClick={savePoints}/>
         <div className="container">
           <br/>
 

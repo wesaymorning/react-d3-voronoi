@@ -75,7 +75,7 @@ function Line(props) {
                 <Card.Body>
                   <Card.Title>line</Card.Title>
 
-                  <a data-tooltip-id="spiral_checkbox-tooltip" data-tooltip-content="enable/disable spiral" data-tooltip-place="top" >
+                  <a data-tooltip-id="line_checkbox-tooltip" data-tooltip-content="enable/disable line" data-tooltip-place="top" >
 
                   <input
                     name="enabled"
@@ -86,9 +86,9 @@ function Line(props) {
                   />
 
                   </a>
-                  <Tooltip id="spiral_checkbox-tooltip" />
+                  <Tooltip id="line_checkbox-tooltip" />
                   
-                  <br/>   
+                   
 
                   <a data-tooltip-id="usecenter-checkbox-tooltip" data-tooltip-content="use window center" data-tooltip-place="top" >
                   <input
@@ -100,6 +100,7 @@ function Line(props) {
                   </a>
                   <Tooltip id="usecenter-checkbox-tooltip" />
 
+                   
                   <a data-tooltip-id="usecenter-checkbox-tooltip" data-tooltip-content="use relative" data-tooltip-place="top" >
                   <input
                     name="useRelative"
@@ -109,9 +110,9 @@ function Line(props) {
                   />
                   </a>
                   <Tooltip id="usecenter-checkbox-tooltip" />
-
+                  <br/> 
                   <label>point 1</label>
-                  <a data-tooltip-id="center-x-tooltip" data-tooltip-content="center X" data-tooltip-place="top" >
+                  <a data-tooltip-id="center-x-tooltip" data-tooltip-content="x1" data-tooltip-place="top" >
                     <button onClick={() => handleChangeLineValueDec(props.index, "x1")}><GrSubtract/></button>
                     <input 
                       class="cardo_input"
@@ -125,7 +126,7 @@ function Line(props) {
                   <button onClick={() => handleChangeLineValueAdd(props.index, "x1")}><GrAdd/></button>
                   <Tooltip id="center-x-tooltip" />
 
-                  <a data-tooltip-id="center-y-tooltip" data-tooltip-content="center Y" data-tooltip-place="top" >
+                  <a data-tooltip-id="center-y-tooltip" data-tooltip-content="y1" data-tooltip-place="top" >
                     <button onClick={() => handleChangeLineValueDec(props.index, "y1")}><GrSubtract/></button>
                     <input 
                       class="cardo_input"
@@ -142,7 +143,7 @@ function Line(props) {
                   <br/>
 
                   <label>point 2</label>
-                  <a data-tooltip-id="center-x-tooltip" data-tooltip-content="center X" data-tooltip-place="top" >
+                  <a data-tooltip-id="center-x-tooltip" data-tooltip-content="x2" data-tooltip-place="top" >
                     <button onClick={() => handleChangeLineValueDec(props.index, "x2")}><GrSubtract/></button>
                     <input 
                       class="cardo_input"
@@ -156,7 +157,7 @@ function Line(props) {
                   <button onClick={() => handleChangeLineValueAdd(props.index, "x2")}><GrAdd/></button>
                   <Tooltip id="center-x-tooltip" />
 
-                  <a data-tooltip-id="center-y-tooltip" data-tooltip-content="center Y" data-tooltip-place="top" >
+                  <a data-tooltip-id="center-y-tooltip" data-tooltip-content="y2" data-tooltip-place="top" >
                     <button onClick={() => handleChangeLineValueDec(props.index, "y2")}><GrSubtract/></button>
                     <input 
                       class="cardo_input"
