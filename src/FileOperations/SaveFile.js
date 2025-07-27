@@ -4,39 +4,18 @@ import Modal from 'react-bootstrap/Modal';
 
 function SavePointsFile(props) {
   const [show, setShow] = useState(false);
-  const [files, setFiles] = useState("");
-  const [fileContents, setFileContents] = useState("");
+  const [fileName, setFileName] = useState("points.json");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  function handleFilesChanged (e) {
+  function handleFileChanged (e) {
     console.log("file changed");
 
-    const file = e.target.files[0];
+    const file = e.target.value;
     //console.log(file)
 
-    setFiles(file);
-
-    if (!file.type) {
-        //status.textContent = 'Error: The File.type property does not appear to be supported on this browser.';
-        return;
-      }
-      if (!file.type.match('application/json')) {
-        //status.textContent = 'Error: The selected file does not appear to be a jason baby.'
-        return;
-      }
-      const reader = new FileReader();
-      reader.addEventListener('load', event => {
-        var fileContents = event.target.result;
-        //console.log('contents:' + fileContents);
-        setFileContents(fileContents);
-      });
-      reader.readAsText(file);
-  }
-
-  function handleOnLoad (e) {
-    console.log("file on load event");
+    setFileName(file);
   }
 
   return (
@@ -59,7 +38,7 @@ function SavePointsFile(props) {
               onSubmit={(e) => {
                   handleClose();
                   e.preventDefault();
-                  props.savePoints(files);
+                  props.savePoints(fileName);
               }}
               id="editmodal"
               className="w-full max-w-sm"
@@ -69,19 +48,17 @@ function SavePointsFile(props) {
                 <label
                   className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                 >
-                  Points File Path
+                  Points File Name
                 </label>
               </div>
               <div className="md:w-2/3">
-                <input
-                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                  id="filePath"
-                  type="file"
-                  multiple
-                  name="jsonfiles"
-                  
-                  onChange={handleFilesChanged}
-                  onLoad={handleOnLoad}
+                <input 
+                      class="file_name_input"
+                      name="fileName"
+                      type="text" 
+                      placeholder="file name"
+                      value={fileName}
+                      onChange={handleFileChanged}
                 />
               </div>
             </div>

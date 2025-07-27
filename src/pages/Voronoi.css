@@ -28,6 +28,10 @@
     margin-left: 300px;
   }
 
+  .file_name_input {
+    width: 200px;
+  }
+
   .cardo_input {
     width: 50px;
     text-align: center;
@@ -71,7 +75,7 @@
   }
 
   .line_card {
-    background-image: linear-gradient(rgb(48, 17, 184), rgb(255, 200, 0));
+    background-image: linear-gradient(rgb(17, 184, 75), rgb(255, 200, 0));
   }
 
   .circle_card {
