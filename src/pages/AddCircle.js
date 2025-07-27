@@ -4,12 +4,14 @@ import Modal from 'react-bootstrap/Modal';
 
 function AddCircle(props) {
   const [show, setShow] = useState(false);
-  const [startAngle, setStartAngle] = useState(0);
-  const [centerX, setCenterX] = useState(200);
-  const [centerY, setCenterY] = useState(200);
+  const [centerX, setCenterX] = useState(0);
+  const [centerY, setCenterY] = useState(0);
   const [radius, setRadius] = useState(props.radius);
+  const [startAngle, setStartAngle] = useState(0);
+  const [totalAngle, setTotalAngle] = useState(360);
   const [sectors, setSectors] = useState(props.sectors);
   const [useCenter, setUseCenter] = useState(true);
+  const [useRelative, setUseRelative] = useState(false);
   const [timedRelease, setTimedRelease] = useState(false);
   const [timeDelay, setTimeDelay] = useState(100);
 
@@ -17,6 +19,7 @@ function AddCircle(props) {
   const handleShow = () => setShow(true);
 
   function handleChange(e) { setUseCenter(e.target.checked); }
+  function handleChangeRelative(e) { setUseRelative(e.target.checked); }
   function handleTimedChange(e) { setTimedRelease(e.target.checked); }
   
   return (
@@ -50,17 +53,25 @@ function AddCircle(props) {
               onChange={handleTimedChange}
             />
             Use timed delay point release
+          </label><br/>
+          <label>
+            <input
+              type="checkbox"
+              checked={useRelative}
+              onChange={handleChangeRelative}
+            />
+            Use relative distance
           </label>
           <form
               onSubmit={(e) => {
                   handleClose();
                   e.preventDefault();
-                  props.addCircle(useCenter, centerX, centerY, startAngle, radius, sectors, timedRelease, timeDelay);
+                  props.addCircle(useCenter, useRelative, centerX, centerY, radius, startAngle, totalAngle, sectors, timedRelease, timeDelay);
               }}
               id="editmodal"
               className="w-full max-w-sm"
           >
-          {useCenter ? <></> :
+          {(!useCenter || useRelative) ? 
             <>
             <div className="md:flex md:items-center mb-6">
               <div className="md:w-1/3">
@@ -101,29 +112,8 @@ function AddCircle(props) {
                 />
               </div>
             </div>
-            </>
+            </> : <></>
             }
-
-          <div className="md:flex md:items-center mb-6">
-              <div className="md:w-1/3">
-                <label
-                  className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                >
-                  Start Angle
-                </label>
-              </div>
-              <div className="md:w-2/3">
-                <input
-                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                  id="radius"
-                  type="number"
-                  value={startAngle}
-                  onChange={(e) => {
-                    setStartAngle(e.target.value);
-                  }}
-                />
-              </div>
-            </div>
 
             <div className="md:flex md:items-center mb-6">
               <div className="md:w-1/3">
@@ -141,6 +131,48 @@ function AddCircle(props) {
                   value={radius}
                   onChange={(e) => {
                     setRadius(e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="md:flex md:items-center mb-6">
+              <div className="md:w-1/3">
+                <label
+                  className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                >
+                  Start angle 
+                </label>
+              </div>
+              <div className="md:w-2/3">
+                <input
+                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  id="startAngle"
+                  type="number"
+                  value={startAngle}
+                  onChange={(e) => {
+                    setStartAngle(e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="md:flex md:items-center mb-6">
+              <div className="md:w-1/3">
+                <label
+                  className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                >
+                  Total angle 
+                </label>
+              </div>
+              <div className="md:w-2/3">
+                <input
+                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  id="totalAngle"
+                  type="number"
+                  value={totalAngle}
+                  onChange={(e) => {
+                    setTotalAngle(e.target.value);
                   }}
                 />
               </div>

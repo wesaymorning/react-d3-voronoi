@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
 function AddArchimedean(props) {
   const [show, setShow] = useState(false);
-  const [centerX, setCenterX] = useState(props.centerX);
-  const [centerY, setCenterY] = useState(props.centerY);
+  const [centerX, setCenterX] = useState(0);
+  const [centerY, setCenterY] = useState(0);
   const [startRadius, setStartRadius] = useState(200);
   const [stopRadius, setStopRadius] = useState(400);
   const [startAngle, setStartAngle] = useState(0);
   const [totalAngle, setTotalAngle] = useState(360);
   const [sectors, setSectors] = useState(props.sectors);
   const [useCenter, setUseCenter] = useState(true);
+  const [useRelative, setUseRelative] = useState(false);
   const [timedRelease, setTimedRelease] = useState(false);
   const [timeDelay, setTimeDelay] = useState(100);
 
@@ -20,6 +20,7 @@ function AddArchimedean(props) {
   const handleShow = () => setShow(true);
 
   function handleChange(e) { setUseCenter(e.target.checked); }
+  function handleChangeRelative(e) { setUseRelative(e.target.checked); }
   function handleTimedChange(e) { setTimedRelease(e.target.checked); }
 
   return (
@@ -53,12 +54,21 @@ function AddArchimedean(props) {
               onChange={handleTimedChange}
             />
             Use timed delay point release
+          </label><br/>
+          <label>
+            <input
+              type="checkbox"
+              checked={useRelative}
+              onChange={handleChangeRelative}
+            />
+            Use relative distance
           </label>
           <form
               onSubmit={(e) => {
                   handleClose();
                   e.preventDefault();
                   props.addArchimedean(useCenter, 
+                                       useRelative,
                                        centerX, 
                                        centerY, 
                                        startRadius, 
@@ -72,7 +82,8 @@ function AddArchimedean(props) {
               id="editmodal"
               className="w-full max-w-sm"
           >
-            {useCenter ? <></> :
+          
+          {(!useCenter || useRelative) ? 
             <>
             <div className="md:flex md:items-center mb-6">
               <div className="md:w-1/3">
@@ -113,7 +124,7 @@ function AddArchimedean(props) {
                 />
               </div>
             </div>
-            </>
+            </> : <></>
             }
 
             <div className="md:flex md:items-center mb-6">
