@@ -57,8 +57,8 @@ function Line(props) {
                                            useRelative: props.line.useRelative,
                                            x1: props.line.x1, 
                                            y1: props.line.y1, 
-                                           x2: props.line.x1, 
-                                           y2: props.line.y1, 
+                                           x2: props.line.x2, 
+                                           y2: props.line.y2, 
                                            sectors: props.line.sectors
                                           }
             ]

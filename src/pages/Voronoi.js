@@ -50,6 +50,8 @@ function Voronoi() {
   const [ellipses, setEllipses] = useState([]);
   const [lines, setLines] = useState([]);
   const [hidden, setHidden] = useState(true);
+
+  const shapes = ["circles", "spirals", "ellipses", "lines"];
   
   const svgRef = useRef();
 
@@ -70,6 +72,7 @@ function Voronoi() {
     setSpirals([]);
     setCircles([]);
     setEllipses([]);
+    setLines([]);
     delayedPoints = [];
 
     changePointsChanged();
@@ -149,8 +152,6 @@ function Voronoi() {
     changePointsChanged();
   }
 
-
-
   function savePoints(fileName) {
     
     if (!fileName) return; // User cancelled
@@ -159,6 +160,7 @@ function Voronoi() {
     currentElements["circles"] = circles;
     currentElements["spirals"] = spirals;
     currentElements["ellipses"] = ellipses;
+    currentElements["lines"] = lines;
 
     const blob = new Blob([JSON.stringify(currentElements, null, 2)], {
       type: 'application/json',
@@ -170,8 +172,6 @@ function Voronoi() {
     a.click();
     URL.revokeObjectURL(url);
   }
-
-
 
   function addDelayedPoint() {
     console.log('add delayed point');
@@ -208,8 +208,16 @@ function Voronoi() {
           );
   }
 
+  function addCircleFile(circleObj) {
+
+    console.log('add circle file');
+
+    setCircles([...circles, circleObj]);
+  }
+
   function addCirclePoints(useCenter, useRelative, circleCenterX, circleCenterY, radius, startAngle, totalAngle, sectors) {
 
+    console.log('add circle points');
     var centerX;
     var centerY;
  
@@ -506,13 +514,45 @@ function Voronoi() {
     console.log('files:' + files);
     console.log('file contents:' + fileContents);
 
+    if (fileContents.length < 10) {
+      return
+    }
+
     // convert json file contents to structure
     const parsedFile = JSON.parse(fileContents);
-    console.log("parsed:" + parsedFile);
 
-    if (parsedFile.length > 0) {
-      parsedFile.forEach(processJsonObject)
+    // circles
+    if (parsedFile.hasOwnProperty("circles")) {
+      parsedFile["circles"].forEach((x, i) => setCircles((prevCircles) => [
+          ...prevCircles,
+          parsedFile["circles"][i]]
+      ));
     }
+
+    // spirals
+    if (parsedFile.hasOwnProperty("spirals")) {
+      parsedFile["spirals"].forEach((x, i) => setSpirals((prevSpirals) => [
+          ...prevSpirals,
+          parsedFile["spirals"][i]]
+      ));
+    }
+
+    // ellipses
+    if (parsedFile.hasOwnProperty("ellipses")) {
+      parsedFile["ellipses"].forEach((x, i) => setEllipses((prevEllipses) => [
+          ...prevEllipses,
+          parsedFile["ellipses"][i]]
+      ));
+    }
+
+    // lines
+    if (parsedFile.hasOwnProperty("lines")) {
+      parsedFile["lines"].forEach((x, i) => setLines((prevLines) => [
+          ...prevLines,
+          parsedFile["lines"][i]]
+      ));
+    }
+
   }
 
   function processJsonObject(jObject) {
@@ -602,6 +642,7 @@ function Voronoi() {
   }
 
   function processCircle(circle) {
+    console.log('process circle' + circle);
     if (circle.enabled) {
       addCirclePoints(circle.useCenter,
                       circle.useRelative,
@@ -611,8 +652,6 @@ function Voronoi() {
                       circle.startAngle, 
                       circle.totalAngle,
                       circle.sectors, 
-                      false,
-                      0.0
                      )
     }
   }
