@@ -229,8 +229,15 @@ function Ellipse(props) {
                   />
                   <button onClick={() => handleChangeEllipseValueAdd(props.index, "sectors")}><GrAdd/></button>
                   
-                <button onClick={() => handleDeleteEllipse(props.index)}><GrTrash /></button>
-                <button onClick={() => handleCopyEllipse()}><GrCopy/></button>
+                <a data-tooltip-id="ellipse_delete-tooltip" data-tooltip-content="delete ellipse" data-tooltip-place="top" >  
+                  <button className="icon_deleto" onClick={() => handleDeleteEllipse(props.index)}><GrTrash size={28}/></button>
+                </a>
+                <Tooltip id="ellipse_delete-tooltip" />
+                
+                <a data-tooltip-id="ellipse_duplicate-tooltip" data-tooltip-content="duplicate ellipse" data-tooltip-place="top" >  
+                  <button className="icon_copy" onClick={() => handleCopyEllipse()}><GrCopy size={28}/></button>
+                </a>
+                <Tooltip id="ellipse_duplicate-tooltip" />
 
                 </Card.Body>
               </Card>

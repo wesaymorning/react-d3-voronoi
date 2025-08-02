@@ -6,11 +6,11 @@ function AddLine(props) {
   const [show, setShow] = useState(false);
   const [centerX, setCenterX] = useState(0);
   const [centerY, setCenterY] = useState(0);
-  const [x1, setX1] = useState(props.x1);
-  const [y1, setY1] = useState(props.y1);
-  const [x2, setX2] = useState(props.x2);
-  const [y2, setY2] = useState(props.y2);
-  const [sectors, setSectors] = useState(props.sectors);
+  const [x1, setX1] = useState(0);
+  const [y1, setY1] = useState(0);
+  const [x2, setX2] = useState(200);
+  const [y2, setY2] = useState(200);
+  const [sectors, setSectors] = useState(40);
   const [useCenter, setUseCenter] = useState(true);
   const [useRelative, setUseRelative] = useState(false);
   const [timedRelease, setTimedRelease] = useState(false);

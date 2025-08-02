@@ -198,10 +198,10 @@ function Circle(props) {
                   />
                   <button onClick={() => handleChangeCircleValueAdd(props.index, "sectors")}><GrAdd/></button>
                   
-                <button className="circle_deleto" onClick={() => handleDeleteCircle(props.index)}>
+                <button className="icon_deleto" onClick={() => handleDeleteCircle(props.index)}>
                   <GrTrash size={28}/>
                 </button>
-                <button className="circle_copy" onClick={() => handleCopyCircle()}>
+                <button className="icon_copy" onClick={() => handleCopyCircle()}>
                   <GrCopy size={28}/>
                 </button>
 

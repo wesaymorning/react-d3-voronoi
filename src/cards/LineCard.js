@@ -184,8 +184,17 @@ function Line(props) {
                     onChange={(event) => handleChangeLine(event, props.index)}
                   />
                   <button onClick={() => handleChangeLineValueAdd(props.index, "sectors")}><GrAdd/></button>
-                <button onClick={() => handleDeleteLine(props.index)}><GrTrash/></button>
-                <button onClick={() => handleCopyLine()}><GrCopy /></button>
+
+                <a data-tooltip-id="line_delete-tooltip" data-tooltip-content="delete line" data-tooltip-place="top" >
+                  <button className="icon_deleto" onClick={() => handleDeleteLine(props.index)}><GrTrash size={28}/></button>
+                  </a>
+                <Tooltip id="line_delete-tooltip" />
+
+                <a data-tooltip-id="line_copy-tooltip" data-tooltip-content="duplicate line" data-tooltip-place="top" >
+                  <button className="icon_copy" onClick={() => handleCopyLine()}><GrCopy size={28}/></button>
+                  </a>
+                <Tooltip id="line_copy-tooltip" />
+                
                 </Card.Body>
               </Card>
             </div>

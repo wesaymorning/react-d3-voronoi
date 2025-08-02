@@ -213,8 +213,8 @@ function Spiral(props) {
                     onChange={(event) => handleChangeSpiral(event, props.index)}
                   />
                   <button onClick={() => handleChangeSpiralValueAdd(props.index, "sectors")}><GrAdd/></button>
-                <button onClick={() => handleDeleteSpiral(props.index)}><GrTrash/></button>
-                <button onClick={() => handleCopySpiral()}><GrCopy /></button>
+                <button className="icon_deleto" onClick={() => handleDeleteSpiral(props.index)}><GrTrash size={28}/></button>
+                <button className="icon_copy" onClick={() => handleCopySpiral()}><GrCopy size={28}/></button>
                 </Card.Body>
               </Card>
             </div>
