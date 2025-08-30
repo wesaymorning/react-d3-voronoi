@@ -16,8 +16,8 @@ import './Voronoi.css';
 
 function Voronoi() {
 
-  const width = window.innerWidth - 200;
-  const height = window.innerHeight;
+  var width = window.innerWidth - 200;
+  var height = window.innerHeight;
 
   var firstLoad = true;
 
@@ -83,6 +83,7 @@ function Voronoi() {
 
   const addPoint = () => {
     var e = window.event;
+    console.log("click detected:" + e.Button);
     const svgRect = svgRef.current.getBoundingClientRect();
     const tempX = e.clientX - svgRect.x;
     const tempY = e.clientY - svgRect.y;
@@ -685,6 +686,28 @@ function Voronoi() {
                      )
     }
   }
+
+let resizeTimeout;
+
+window.addEventListener('resize', () => {
+  // Clear any existing timeout to prevent previous calls from executing
+  clearTimeout(resizeTimeout);
+
+  // Set a new timeout
+  resizeTimeout = setTimeout(() => {
+    // This function will be called once the user stops resizing for 200ms
+    handleResizeEnd();
+  }, 200); // Adjust the delay (in milliseconds) as needed
+});
+
+function handleResizeEnd() {
+  // Place your code here that should execute after the resize is finished
+  console.log('Window resize has finished!');
+  width = window.innerWidth - 200;
+  height = window.innerHeight;
+  generatePoints();
+  // Example: Update layout, recalculate element sizes, etc.
+}
 
   useEffect(
     () => {

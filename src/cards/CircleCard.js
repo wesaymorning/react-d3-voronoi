@@ -198,12 +198,19 @@ function Circle(props) {
                   />
                   <button onClick={() => handleChangeCircleValueAdd(props.index, "sectors")}><GrAdd/></button>
                   
-                <button className="icon_deleto" onClick={() => handleDeleteCircle(props.index)}>
-                  <GrTrash size={28}/>
-                </button>
-                <button className="icon_copy" onClick={() => handleCopyCircle()}>
-                  <GrCopy size={28}/>
-                </button>
+                  <a data-tooltip-id="delete-tooltip" data-tooltip-content="delete" data-tooltip-place="top" >
+                    <button className="icon_deleto" onClick={() => handleDeleteCircle(props.index)}>
+                      <GrTrash size={28}/>
+                    </button>
+                  </a>
+                  <Tooltip id="delete-tooltip" />
+
+                  <a data-tooltip-id="copy-tooltip" data-tooltip-content="copy" data-tooltip-place="top" >
+                    <button className="icon_copy" onClick={() => handleCopyCircle()}>
+                      <GrCopy size={28}/>
+                    </button>
+                  </a>
+                  <Tooltip id="copy-tooltip" />
 
                 </Card.Body>
               </Card>
